@@ -2,8 +2,15 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { loadBureauMeetings } from './actions';
 import AppBar from 'material-ui/AppBar';
+import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
 import { Link } from 'react-router-dom';
+import MeetingTable from './MeetingTable';
+import { withRouter } from 'react-router';
+import PropTypes from 'prop-types';
+import ArrowBack from 'material-ui-icons/ArrowBack';
+import Button from 'material-ui/Button';
+
 
 import Table, {
   TableBody,
@@ -15,6 +22,16 @@ import Table, {
 } from 'material-ui/Table';
 
 class Meeting extends Component {
+  static propTypes = {
+    history: PropTypes.object.isRequired
+  }
+
+
+  constructor(props) {
+    super(props);
+    this.handleChangePage = this.handleChangePage.bind(this);
+  }
+
   componentDidMount() {
     const { loadBureauMeetings } = this.props;
     const { year, bureau } = this.props.match.params;
@@ -27,54 +44,21 @@ class Meeting extends Component {
     loadBureauMeetings(year, bureau, page);
   }
 
-  renderMeeting(meeting) {
-    return (
-      <TableRow>
-        <TableCell>{meeting.head}</TableCell>
-        <TableCell>{meeting.member}</TableCell>
-        <TableCell>{meeting.sub_head}</TableCell>
-        <TableCell>{meeting.programme}</TableCell>
-        <TableCell>{meeting.question}</TableCell>
-      </TableRow>
-    );   
-  }
-
   render() {
     const { bureauMeeting } = this.props;
     const { year, bureau } = this.props.match.params;
     return (
       <div>
         <AppBar position="static" color="accent">
-            <h5>
-              &nbsp; <Link to="/">主頁</Link> &nbsp;/&nbsp;{year-1}&nbsp;至&nbsp;{year}&nbsp;年度&nbsp;&nbsp;
+          <Toolbar>
+              &nbsp;&nbsp;<Button raised onClick={() => {this.props.history.goBack()}} color="accent"><ArrowBack/></Button>
+              &nbsp;&nbsp;{year-1}&nbsp;至&nbsp;{year}&nbsp;年度&nbsp;&nbsp;
               {bureauMeeting.bureau}
-            </h5>
+          </Toolbar>
         </AppBar>
-        <Table>
-         {bureauMeeting.meetings &&
-          <TableHead>
-            <TableRow>
-              <TablePagination
-                  colSpan={6}
-                  count={bureauMeeting.total}
-                  rowsPerPage={bureauMeeting.limit}
-                  page={bureauMeeting.offset / bureauMeeting.limit}
-                  backIconButtonProps={{
-                    'aria-label': 'Previous Page',
-                  }}
-                  nextIconButtonProps={{
-                    'aria-label': 'Next Page',
-                  }}
-                  onChangePage={this.handleChangePage.bind(this)}
-                  onChangeRowsPerPage={() => {}}
-              />
-            </TableRow>
-          </TableHead>}
-
-          <TableBody>
-          {bureauMeeting.meetings && bureauMeeting.meetings.map((m) => { return this.renderMeeting(m);})}
-          </TableBody>
-        </Table>
+        {bureauMeeting.meetings &&
+          <MeetingTable meetings={bureauMeeting.meetings} offset={bureauMeeting.offset} total={bureauMeeting.total} limit={bureauMeeting.limit} handleChangePage={this.handleChangePage}/>
+        }
       </div>
     );
   }
@@ -88,4 +72,4 @@ let mapDispatchToProps = (dispatch) => {
   return { loadBureauMeetings: (year, bureau, page) => dispatch(loadBureauMeetings(year, bureau, page))};
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Meeting);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Meeting));

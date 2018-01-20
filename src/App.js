@@ -17,7 +17,6 @@ class App extends Component {
     return (
       <div>
         <Header history={history}/>
-        <br/>
         <GAListener history={history}>
           <Router history={history}>
             <Switch>

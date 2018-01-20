@@ -26,24 +26,22 @@ class Header extends Component {
       <div>
         <AppBar position="static" className={classes.root}>
           <Toolbar>
-            <Typography type="title" color="inherit" className={classes.flex}>
-              <h4>&nbsp;&nbsp;&nbsp;財務委員會書面答覆搜尋器</h4>
-            </Typography>
+            <h2 style={{maxWidth:'70%'}}>g0vhk<br/>財務委員會書面答覆搜尋器&nbsp;&nbsp;</h2>&nbsp;
+            <div class="fb-like" data-href="https://www.facebook.com/g0vhk.io/" data-layout="button" data-action="like" data-size="large" data-show-faces="false" data-share="false"></div>
           </Toolbar>
         </AppBar>
         <AppBar position="static" color="default">
           <Toolbar>
-            &nbsp;&nbsp;&nbsp;
             <TextField
               id="search"
-              label="關鍵字"
-              type="search"
+              placeholder="關鍵字"
               margin="normal"
               onKeyPress={(ev) => {
                 console.log(`Pressed keyCode ${ev.key}`);
                 if (ev.key === 'Enter') {
                 // Do code here
                   console.log(this.props.history);
+                  ev.target.blur();
                   ev.preventDefault();
                   this.props.history.push('/search/' + ev.target.value);
                 }

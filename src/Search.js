@@ -4,6 +4,12 @@ import Typography from 'material-ui/Typography';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { search } from './actions';
+import MeetingTable from './MeetingTable';
+import { withRouter } from 'react-router';
+import PropTypes from 'prop-types';
+import ArrowBack from 'material-ui-icons/ArrowBack';
+import Button from 'material-ui/Button';
+import Toolbar from 'material-ui/Toolbar';
 
 import Table, {
   TableBody,
@@ -16,11 +22,15 @@ import Table, {
 
 
 class Search extends Component {
+  static propTypes = {
+    history: PropTypes.object.isRequired
+  }
 
-   constructor(props) {
-     super(props);
-     this.searchWithParams = this.searchWithParams.bind(this);
-   }
+  constructor(props) {
+    super(props);
+    this.searchWithParams = this.searchWithParams.bind(this);
+    this.handleChangePage = this.handleChangePage.bind(this);
+  }
 
    searchWithParams(props=this.props) {
      const { keyword } = props.match.params;
@@ -46,57 +56,22 @@ class Search extends Component {
      const { keyword } = this.props.match.params;
      search(keyword, page);
    }
-
-  renderMeeting(meeting) {
-    return (
-      <TableRow>
-        <TableCell>{meeting.head}</TableCell>
-        <TableCell>{meeting.member}</TableCell>
-        <TableCell>{meeting.sub_head}</TableCell>
-        <TableCell>{meeting.programme}</TableCell>
-        <TableCell>{meeting.question}</TableCell>
-      </TableRow>
-    );   
-  }
-
+  
   render() {
     const { keyword } = this.props.match.params;
     const { result } = this.props;
-    console.log(result);
+    console.log(this.props.history.back);
     return (
       <div>
         <AppBar position="static" color="accent">
-          <h5>
-            &nbsp; <Link to="/">主頁</Link> &nbsp;/&nbsp; 關鍵字 " { keyword } " 搜尋結果
-          </h5>
+          <Toolbar>
+            &nbsp;&nbsp;<Button raised onClick={() => {this.props.history.goBack()}} color="accent"><ArrowBack/></Button>
+            &nbsp; 關鍵字 " { keyword } " 搜尋結果
+          </Toolbar>
         </AppBar>
-        <Table>
          {result.meetings &&
-          <TableHead>
-            <TableRow>
-              <TablePagination
-                  colSpan={6}
-                  count={result.total}
-                  rowsPerPage={result.limit}
-                  page={result.offset / result.limit}
-                  backIconButtonProps={{
-                    'aria-label': 'Previous Page',
-                  }}
-                  nextIconButtonProps={{
-                    'aria-label': 'Next Page',
-                  }}
-                  onChangePage={this.handleChangePage.bind(this)}
-                  onChangeRowsPerPage={() => {}}
-              />
-            </TableRow>
-          </TableHead>}
-
-          <TableBody>
-          {result.meetings && result.meetings.map((m) => { return this.renderMeeting(m);})}
-          </TableBody>
-        </Table>
-
-      </div>      
+          <MeetingTable meetings={result.meetings} offset={result.offset} total={result.total} limit={result.limit} handleChangePage={this.handleChangePage}/>}
+        </div>      
     );
   }
 
