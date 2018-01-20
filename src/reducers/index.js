@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { LOAD_REPLY, LOAD_MEETINGS, LOAD_BUREAU_MEETINGS } from './const';
+import { LOAD_REPLY, LOAD_MEETINGS, LOAD_BUREAU_MEETINGS, LOAD_SEARCH } from './const';
 
 
 let replyReducer = (state=null, action) => {
@@ -25,8 +25,18 @@ let bureauMeetingReducer = (state={}, action) => {
   return state;
 };
 
+let searchReducer = (state={}, action) => {
+  if (action.type === LOAD_SEARCH) {
+    return {keyword: action.keyword, meetings: action.value, total:action.total, offset: action.offset, limit: action.limit};
+  }
+  return state;
+};
+
+
+
 export default combineReducers({
   reply: replyReducer,
   meeting: meetingReducer,
-  bureauMeeting: bureauMeetingReducer
+  bureauMeeting: bureauMeetingReducer,
+  search: searchReducer
 });

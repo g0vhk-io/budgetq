@@ -1,7 +1,7 @@
-import { LOAD_REPLY, LOAD_MEETINGS, LOAD_BUREAU_MEETINGS } from '../reducers/const';
+import { LOAD_REPLY, LOAD_MEETINGS, LOAD_BUREAU_MEETINGS, LOAD_SEARCH } from '../reducers/const';
 
 
-const ENDPOINT = "http://192.168.1.54:9900";
+const ENDPOINT = "https://api.g0vhk.io";
 
 function updateMeetings(year, meetings) {
   return {
@@ -22,6 +22,18 @@ function updateBureauMeetings(year, bureau, meetings, offset, limit, total) {
     total: total
   };
 }
+
+function updateSearch(keyword, meetings, offset, limit, total) {
+  return {
+    type: LOAD_SEARCH,
+    keyword: keyword,
+    value: meetings,
+    offset: offset,
+    limit: limit,
+    total: total
+  };
+}
+
 
 
 
@@ -88,10 +100,21 @@ export function loadBureauMeetings(year, bureau, page=0, pageSize=10) {
   }
 };
 
-export function search(keyword) {
+export function search(keyword, page=0, pageSize=10) {
   return (dispatch) => {
     dispatch(() => {
-      alert(keyword);
+      const offset = page * pageSize;
+      return fetch(ENDPOINT + '/budget/search/' + keyword + '/?offset=' + offset + '&limit=' + pageSize  ).then(
+      response => {
+        if (response.ok) {
+          response.json().then((json) => dispatch(updateSearch(keyword, json.data, json.offset, json.limit, json.total)));
+        } else {
+          dispatch(updateSearch(keyword, [], 0, 0, 0))
+        }
+      },
+      error => dispatch(updateSearch(keyword, [], 0, 0, 0))
+    )
+
     });
   }
 };
