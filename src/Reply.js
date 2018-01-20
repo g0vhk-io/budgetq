@@ -8,7 +8,10 @@ import Typography from 'material-ui/Typography';
 
 class Reply extends Component {
     componentDidMount() {
-      const { loadReply, replyKey } = this.props;
+      let { loadReply, replyKey, match } = this.props;
+      if (! replyKey) {
+        replyKey = match.params.replyKey;
+      } 
       loadReply(replyKey);
     }
 

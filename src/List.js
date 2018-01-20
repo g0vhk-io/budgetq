@@ -4,6 +4,7 @@ import { loadMeetings } from './actions';
 import AppBar from 'material-ui/AppBar';
 import Button from 'material-ui/Button';
 import Typography from 'material-ui/Typography';
+import { Link } from 'react-router-dom'
 
 
 class List extends Component {
@@ -12,19 +13,18 @@ class List extends Component {
     loadMeetings(2017);
   }
 
-
   renderYear(year, meetings) {
     return (
       <div>
         <AppBar position="static" color="accent">
-          <Typography type="title" color="inherit">
-            <h2>&nbsp;{year-1}&nbsp;至&nbsp;{year}&nbsp;年度</h2>
-          </Typography>
+            <h5>&nbsp;{year-1}&nbsp;至&nbsp;{year}&nbsp;年度</h5>
         </AppBar>
         {meetings.map((m) => { return (
-           <Button raised color="secondary">
-             {m.bureau.name_ch}
-           </Button>);
+          <Link to={"/meeting/" + m.year + "/" + m.bureau.bureau + "/"}>
+            <Button raised color="secondary">
+              {m.bureau.name_ch}
+            </Button>
+          </Link>);
          })}
       </div>);
   }
@@ -36,7 +36,6 @@ class List extends Component {
     if (meeting) {
       return (
         <div>
-          <br/>
           {Object.keys(meeting).map((k) => { return this.renderYear(k, meeting[k]); })}         
         </div>);
     }

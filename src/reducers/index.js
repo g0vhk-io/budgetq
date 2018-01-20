@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { LOAD_REPLY, LOAD_MEETINGS } from './const';
+import { LOAD_REPLY, LOAD_MEETINGS, LOAD_BUREAU_MEETINGS } from './const';
 
 
 let replyReducer = (state=null, action) => {
@@ -18,9 +18,15 @@ let meetingReducer = (state={}, action) => {
   return state;
 };
 
-
+let bureauMeetingReducer = (state={}, action) => {
+  if (action.type === LOAD_BUREAU_MEETINGS) {
+    return {year: action.year, meetings: action.value, bureau: action.bureau, total:action.total, offset: action.offset, limit: action.limit};
+  }
+  return state;
+};
 
 export default combineReducers({
   reply: replyReducer,
-  meeting: meetingReducer 
+  meeting: meetingReducer,
+  bureauMeeting: bureauMeetingReducer
 });
