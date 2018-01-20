@@ -8,6 +8,7 @@ import Header from './Header';
 import Meeting from './Meeting';
 import { createBrowserHistory } from 'history';
 import Search from './Search';
+import GAListener from './GAListener';
 
 const history = createBrowserHistory();
 
@@ -17,14 +18,16 @@ class App extends Component {
       <div>
         <Header history={history}/>
         <br/>
-        <Router history={history}>
-          <Switch>
-            <Route exact path='/reply/:replyKey/' component={Reply}/>
-            <Route exact path='/meeting/:year/:bureau/' component={Meeting}/>
-            <Route exact path='/search/:keyword' component={Search}/>
-            <Route path='/' component={Home}/>
-          </Switch>
-        </Router>
+        <GAListener history={history}>
+          <Router history={history}>
+            <Switch>
+              <Route exact path='/reply/:replyKey/' component={Reply}/>
+              <Route exact path='/meeting/:year/:bureau/' component={Meeting}/>
+              <Route exact path='/search/:keyword' component={Search}/>
+              <Route path='/' component={Home}/>
+            </Switch>
+          </Router>
+        </GAListener>
       </div>
     );
   }

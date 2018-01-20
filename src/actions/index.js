@@ -1,7 +1,8 @@
 import { LOAD_REPLY, LOAD_MEETINGS, LOAD_BUREAU_MEETINGS, LOAD_SEARCH } from '../reducers/const';
 
 
-const ENDPOINT = "https://api.g0vhk.io";
+const ENDPOINT = process.env.REACT_APP_ENDPOINT || "https://api.g0vhk.io";
+
 
 function updateMeetings(year, meetings) {
   return {
