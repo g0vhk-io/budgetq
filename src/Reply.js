@@ -13,6 +13,7 @@ import PropTypes from 'prop-types';
 import Toolbar from 'material-ui/Toolbar';
 import Disqus from './Disqus';
 import Share from 'material-ui-icons/Share';
+import {Helmet} from "react-helmet";
 
 
 class Reply extends Component {
@@ -31,7 +32,7 @@ class Reply extends Component {
     }
 
     renderHeader() {
-      const url = "http://budgetq.g0vhk.io/reply/" + this.props.reply.key;
+      const url = "https://api.g0vhk.io/budget/sharer/" + this.props.reply.key;
       return (
         <AppBar position="static" color="accent">
           <Toolbar>
@@ -117,8 +118,16 @@ class Reply extends Component {
       const {reply} = this.props;
       if (reply) {
        const url = "http://budgetq.g0vhk.io/reply/" + reply.key;
+       const title = reply.year + "年開支預算問題" + reply.head + " - " + reply.member;
+       const description = reply.question.replace(/(<([^>]+)>)/ig,"").substring(0,40);
       return (
         <div>
+          <Helmet>
+            <meta charSet="utf-8" />
+            <title>{title}</title>
+            <meta property="og:title" content={title} />
+            <meta property="og:description" content={description} />
+          </Helmet>
           {this.renderHeader()}
           {this.renderTable()}
           {this.renderTab()}
