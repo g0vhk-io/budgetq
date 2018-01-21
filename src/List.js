@@ -5,6 +5,15 @@ import AppBar from 'material-ui/AppBar';
 import Button from 'material-ui/Button';
 import Typography from 'material-ui/Typography';
 import { Link } from 'react-router-dom'
+import Table, {
+TableBody,
+TableCell,
+TableFooter,
+TableHead,
+TablePagination,
+TableRow,
+} from 'material-ui/Table';
+
 
 
 class List extends Component {
@@ -13,19 +22,40 @@ class List extends Component {
     loadMeetings(2017);
   }
 
+  renderChunk(c) {
+    return c.map((m) => {
+      return(
+        <TableCell style={{width: '25%', padding:'0'}}>
+          <Link to={"/meeting/" + m.year + "/" + m.bureau.bureau + "/"}>
+            <Button color="secondary" fullWidth={true}>
+            {m.bureau.name_ch}
+            </Button>
+          </Link>
+        </TableCell>
+
+      );
+    });
+  }
+
   renderYear(year, meetings) {
+    var i,j,chunks=[],size = 4;
+    for (i=0,j=meetings.length; i<j; i+=size) {
+      chunks.push(meetings.slice(i,i+size));
+    }
+
     return (
       <div>
         <AppBar position="static" color="accent">
             <h5>&nbsp;{year-1}&nbsp;至&nbsp;{year}&nbsp;年度</h5>
         </AppBar>
-        {meetings.map((m) => { return (
-          <Link to={"/meeting/" + m.year + "/" + m.bureau.bureau + "/"}>
-            <Button raised color="secondary">
-              {m.bureau.name_ch}
-            </Button>
-          </Link>);
+        <Table style={{width: '100%', tableLayout: 'fixed'}}>
+        {chunks.map((c) => { let m = c[0]; return (
+          <TableRow>
+          {this.renderChunk(c)}
+          </TableRow>
+          );
          })}
+        </Table>
       </div>);
   }
 

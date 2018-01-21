@@ -1,7 +1,7 @@
 {
   "name": "budget",
   "version": "0.1.0",
-  "homepage": "https://g0vhk-io.github.io/budgetq",
+  "homepage": "http://budgetq.g0vhk.io",
   "private": true,
   "dependencies": {
     "gh-pages": "^1.1.0",
@@ -10,7 +10,9 @@
     "material-ui-icons": "^1.0.0-beta.17",
     "prop-types": "^15.6.0",
     "react": "^16.2.0",
+    "react-disqus-thread": "^0.4.0",
     "react-dom": "^16.2.0",
+    "react-facebook": "^4.2.1",
     "react-ga": "^2.4.1",
     "react-redux": "^5.0.6",
     "react-router-dom": "^4.2.2",

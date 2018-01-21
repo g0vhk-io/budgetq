@@ -11,6 +11,8 @@ import Button from 'material-ui/Button';
 import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
 import Toolbar from 'material-ui/Toolbar';
+import Disqus from './Disqus';
+import Share from 'material-ui-icons/Share';
 
 
 class Reply extends Component {
@@ -29,14 +31,23 @@ class Reply extends Component {
     }
 
     renderHeader() {
+      const url = "http://budgetq.g0vhk.io/reply/" + this.props.reply.key;
       return (
         <AppBar position="static" color="accent">
           <Toolbar>
-              &nbsp;&nbsp;<Button raised onClick={() => {this.props.history.goBack()}} color="accent"><ArrowBack/></Button>
+           {this.props.reply.key} - {this.props.reply.member}
+           &nbsp;&nbsp;
+
+   <a class="fb-xfbml-parse-ignore" target="_blank" href={"https://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(url)}><Button raised >分享</Button></a>
+           &nbsp;&nbsp;
+           <Button href={ "https://docs.google.com/forms/d/e/1FAIpQLScn_SK7wtVYHstXJR324vFpe8sFQy8-eSofq8vKpTOAlcvazw/viewform?entry.604171204=" + this.props.reply.key + "&entry.616437323"} target="_blank" raised>
+              報告問題
+           </Button> 
           </Toolbar>
         </AppBar>
       );
     }
+
 
     componentDidMount() {
       let { loadReply, replyKey, match } = this.props;
@@ -70,6 +81,7 @@ class Reply extends Component {
       const { reply } = this.props;
       return (
         <table>
+         <tbody>
           <tr>
             <td>年份:</td><td>{reply.year}</td>
           </tr>
@@ -94,7 +106,7 @@ class Reply extends Component {
           <tr>
             <td>提問人:</td><td>{reply.member}</td>
           </tr>
-
+         </tbody>
 
         </table>
 
@@ -104,11 +116,13 @@ class Reply extends Component {
     render() {
       const {reply} = this.props;
       if (reply) {
+       const url = "http://budgetq.g0vhk.io/reply/" + reply.key;
       return (
         <div>
           {this.renderHeader()}
           {this.renderTable()}
           {this.renderTab()}
+          <Disqus shortname="budgetq-g0vhk-io" title="aaa" url={url}/>
         </div>
       );
       }

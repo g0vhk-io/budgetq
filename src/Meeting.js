@@ -51,7 +51,6 @@ class Meeting extends Component {
       <div>
         <AppBar position="static" color="accent">
           <Toolbar>
-              &nbsp;&nbsp;<Button raised onClick={() => {this.props.history.goBack()}} color="accent"><ArrowBack/></Button>
               &nbsp;&nbsp;{year-1}&nbsp;至&nbsp;{year}&nbsp;年度&nbsp;&nbsp;
               {bureauMeeting.bureau}
           </Toolbar>

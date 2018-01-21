@@ -10,6 +10,8 @@ import PropTypes from 'prop-types';
 import ArrowBack from 'material-ui-icons/ArrowBack';
 import Button from 'material-ui/Button';
 import Toolbar from 'material-ui/Toolbar';
+import TextField from 'material-ui/TextField';
+
 
 import Table, {
   TableBody,
@@ -63,9 +65,32 @@ class Search extends Component {
     console.log(this.props.history.back);
     return (
       <div>
+        <AppBar position="static" color="default">
+          <Toolbar>
+            <TextField
+              id="search"
+              placeholder="關鍵字"
+              margin="normal"
+              onKeyPress={(ev) => {
+                console.log(`Pressed keyCode ${ev.key}`);
+                if (ev.key === 'Enter') {
+                // Do code here
+                  console.log(this.props.history);
+                  ev.target.blur();
+                  ev.preventDefault();
+                  this.props.history.replace('/search/' + ev.target.value);
+                }
+              }}
+              style={{flex: 1}}
+              color="contrast"
+            />
+
+          </Toolbar>
+        </AppBar>
+
+
         <AppBar position="static" color="accent">
           <Toolbar>
-            &nbsp;&nbsp;<Button raised onClick={() => {this.props.history.goBack()}} color="accent"><ArrowBack/></Button>
             &nbsp; 關鍵字 " { keyword } " 搜尋結果
           </Toolbar>
         </AppBar>
