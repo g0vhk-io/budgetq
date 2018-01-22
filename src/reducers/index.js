@@ -2,9 +2,9 @@ import { combineReducers } from 'redux';
 import { LOAD_REPLY, LOAD_MEETINGS, LOAD_BUREAU_MEETINGS, LOAD_SEARCH } from './const';
 
 
-let replyReducer = (state=null, action) => {
+let replyReducer = (state={data: null, loading: true}, action) => {
   if (action.type === LOAD_REPLY) {
-    return action.value;
+    return { data: action.value, loading: action.loading };
   }
   return state;
 };

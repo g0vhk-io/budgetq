@@ -137,7 +137,7 @@ class Reply extends Component {
       }
       return (
         <div>
-          載入{this.props.key} 發生錯誤 - 404錯誤
+          {! this.props.loading && <span>載入{this.props.key} 發生錯誤 - 404錯誤</span>}
         </div>        
       );
     }
@@ -146,7 +146,7 @@ class Reply extends Component {
 
 const mapStateToProps = (state) => {
   console.log(state);
-  return {reply: state.reply};
+  return {reply: state.reply.data, loading: state.reply.loading};
 };
 
 const mapDispatchToProps = (dispatch) => {

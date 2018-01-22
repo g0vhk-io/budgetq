@@ -38,9 +38,10 @@ function updateSearch(keyword, meetings, offset, limit, total) {
 
 
 
-function updateReply(reply) {
+function updateReply(reply, loading=false) {
   return {
     type: LOAD_REPLY,
+    loading: loading,
     value: reply
   };
 }
@@ -49,6 +50,7 @@ function updateReplyError(error) {
   console.log(error);
   return {
     type: LOAD_REPLY,
+    loading: false,
     value: null
   };
 }
@@ -56,6 +58,7 @@ function updateReplyError(error) {
 
 export function loadReply(replyId) {
   return (dispatch) => {
+    dispatch(updateReply(null, true));
     return fetch(ENDPOINT + '/budget/replies/' + replyId + '/').then(
       response => {
         if (response.ok) {

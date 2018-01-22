@@ -8,9 +8,11 @@ import MeetingTable from './MeetingTable';
 import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
 import ArrowBack from 'material-ui-icons/ArrowBack';
+import SearchIcon from 'material-ui-icons/Search';
 import Button from 'material-ui/Button';
 import Toolbar from 'material-ui/Toolbar';
 import TextField from 'material-ui/TextField';
+import IconButton from 'material-ui/IconButton';
 
 
 import Table, {
@@ -30,6 +32,7 @@ class Search extends Component {
 
   constructor(props) {
     super(props);
+    this.search = null;
     this.searchWithParams = this.searchWithParams.bind(this);
     this.handleChangePage = this.handleChangePage.bind(this);
   }
@@ -62,7 +65,6 @@ class Search extends Component {
   render() {
     const { keyword } = this.props.match.params;
     const { result } = this.props;
-    console.log(this.props.history.back);
     return (
       <div>
         <AppBar position="static" color="default">
@@ -71,6 +73,8 @@ class Search extends Component {
               id="search"
               placeholder="關鍵字"
               margin="normal"
+              defaultValue={keyword}
+              inputRef={input => this.search = input}
               onKeyPress={(ev) => {
                 console.log(`Pressed keyCode ${ev.key}`);
                 if (ev.key === 'Enter') {
@@ -84,7 +88,16 @@ class Search extends Component {
               style={{flex: 1}}
               color="contrast"
             />
-
+            <IconButton aria-label="Search" onClick={
+              (ev) => {
+                ev.preventDefault();
+                console.log(this.refs);
+                let keyword = this.search.value;
+                this.props.history.replace('/search/' + keyword);
+              }
+            }>
+              <SearchIcon />
+            </IconButton>
           </Toolbar>
         </AppBar>
 

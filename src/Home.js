@@ -5,7 +5,8 @@ import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
 import TextField from 'material-ui/TextField';
 import { withStyles } from 'material-ui/styles';
-
+import IconButton from 'material-ui/IconButton';
+import SearchIcon from 'material-ui-icons/Search';
 
 const styles = theme => ({
   root: {
@@ -19,6 +20,11 @@ const styles = theme => ({
 
 
 class Home extends Component {
+  constructor(props) {
+    super(props);
+    this.search = null;
+  }
+
   render() {
     const { classes } = this.props;
     return (
@@ -29,6 +35,7 @@ class Home extends Component {
               id="search"
               placeholder="關鍵字"
               margin="normal"
+              inputRef={input => this.search = input}
               onKeyPress={(ev) => {
                 console.log(`Pressed keyCode ${ev.key}`);
                 if (ev.key === 'Enter') {
@@ -42,7 +49,16 @@ class Home extends Component {
               className={classes.search}
               color="contrast"
             />
-
+            <IconButton aria-label="Search" onClick={
+              (ev) => {
+                ev.preventDefault();
+                console.log(this.refs);
+                let keyword = this.search.value;
+                this.props.history.push('/search/' + keyword);
+              }
+            }>
+              <SearchIcon />
+            </IconButton>
           </Toolbar>
         </AppBar>
 

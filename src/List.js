@@ -20,6 +20,9 @@ class List extends Component {
   componentDidMount() {
     const { loadMeetings } = this.props;
     loadMeetings(2017);
+    loadMeetings(2016);
+    loadMeetings(2015);
+    loadMeetings(2014);
   }
 
   renderChunk(c) {
@@ -66,7 +69,7 @@ class List extends Component {
     if (meeting) {
       return (
         <div>
-          {Object.keys(meeting).map((k) => { return this.renderYear(k, meeting[k]); })}         
+          {Object.keys(meeting).sort().reverse().map((k) => { return this.renderYear(k, meeting[k]); })}         
         </div>);
     }
     return (<div></div>);
