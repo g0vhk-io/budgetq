@@ -9,7 +9,7 @@ services:
   - docker
 
 script:
-    - docker build -t $ORG/$REPO:$COMMIT api_server
+    - docker build -t $ORG/$REPO:$COMMIT .
 
 after_success:
     - export TAG='latest'
