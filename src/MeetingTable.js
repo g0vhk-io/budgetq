@@ -13,11 +13,15 @@ class MeetingTable extends Component {
   renderMeeting(meeting) {
     return (
       <TableRow>
-        <Link to={ "/reply/" + meeting.key } target="_blank">
-        <TableCell style={{width: '10%'}}>{meeting.year} 年</TableCell>
-        <TableCell style={{ width: '5%' }}>{meeting.reply_serial_no} {meeting.member}</TableCell>
-        <TableCell style={{ width: '85%'}}>{meeting.question}</TableCell>
-        </Link>
+        <TableCell style={{width: '15%', padding: '0', paddingLeft: '1em'}}>
+          {meeting.year} 年 <br/>{meeting.reply_serial_no} {meeting.member}<br/>
+        </TableCell>
+        <TableCell>
+        
+          <Link to={ "/reply/" + meeting.key } target="_blank">
+            {meeting.question}
+          </Link>
+        </TableCell>
       </TableRow>
     );   
   }
