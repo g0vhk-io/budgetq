@@ -1,0 +1,18 @@
+sudo: required
+env:
+  global:
+    - COMMIT=${TRAVIS_COMMIT::8}
+    - REPO=budgetq
+    - ORG=g0vhk
+
+services:
+  - docker
+
+script:
+    - docker build -t $ORG/$REPO:$COMMIT api_server
+
+after_success:
+    - export TAG='latest'
+    - docker tag $ORG/$REPO:$COMMIT $ORG/$REPO:$TAG
+    - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+    - docker push $ORG/$REPO
