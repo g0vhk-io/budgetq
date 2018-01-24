@@ -48,8 +48,8 @@ class List extends Component {
 
     return (
       <div>
-        <AppBar position="static" color="accent">
-            <h5>&nbsp;{year-1}&nbsp;至&nbsp;{year}&nbsp;年度</h5>
+        <AppBar position="static" color="secondary">
+          <h5>&nbsp;{year-1}&nbsp;至&nbsp;{year}&nbsp;年度</h5>
         </AppBar>
         <Table style={{width: '100%', tableLayout: 'fixed'}}>
         {chunks.map((c) => { let m = c[0]; return (
