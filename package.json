@@ -24,6 +24,8 @@
     "redux-thunk": "^2.2.0"
   },
   "scripts": {
+    "lint2": "eslint src/Header.js",
+    "lint": "eslint src/**.js src/**.jsx",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
     "start": "REACT_APP_ENDPOINT=${ENDPOINT} react-scripts start",
@@ -32,6 +34,12 @@
     "eject": "react-scripts eject"
   },
   "devDependencies": {
+    "babel-eslint": "^8.2.1",
+    "eslint": "^4.16.0",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-react": "^7.5.1",
     "react-social-icons": "^2.8.1"
   }
 }

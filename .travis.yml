@@ -9,6 +9,8 @@ services:
   - docker
 
 script:
+    - npm install --only=dev
+    - npm run lint
     - docker build -t $ORG/$REPO:$COMMIT .
 
 after_success:
