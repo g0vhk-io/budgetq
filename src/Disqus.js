@@ -1,44 +1,45 @@
 // Originally implemented by David Konsumer
 // https://blog.jetboystudio.com/articles/gatsby/
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
 // This function generates new object omitting given properties.
 // Since React props now cannot be modified, I implemented this function.
 // You can also use lodash#omit function.
 function omit(targetObj, omitProps) {
-  let copiedObj = Object.assign({}, targetObj);
-  Object.keys(omitProps).forEach(prop => {
+  const copiedObj = Object.assign({}, targetObj);
+  Object.keys(omitProps).forEach((prop) => {
     delete copiedObj[prop];
   });
   return copiedObj;
 }
- 
+
 export default class Disqus extends React.Component {
   constructor(props) {
     super(props);
     this.state = props;
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.setState(nextProps);
-  }
 
   componentWillMount() {
-    if (typeof window != "undefined" && window.document) {
+    if (typeof window !== 'undefined' && window.document) {
       const component = this;
-      window.disqus_config = function() {
+      window.disqus_config = () => {
         this.page.identifier = component.state.identifier;
         this.page.title = component.state.title;
         this.page.url = component.state.url;
         this.page.category_id = component.state.category_id;
         this.callbacks.onNewComment = component.state.onNewComment;
       };
-      const script = document.createElement("script");
+      const script = document.createElement('script');
       script.src = `//${this.state.shortname}.disqus.com/embed.js`;
       script.async = true;
       document.body.appendChild(script);
     }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState(nextProps);
   }
 
   render() {
@@ -95,5 +96,14 @@ Disqus.propTypes = {
    * JavaScript object with comment `id` and `text`. This allows you to track
    * user comments and replies and run a script after a comment is posted.
    */
-  onNewComment: PropTypes.func
+  onNewComment: PropTypes.func,
 };
+
+Disqus.defaultProps = {
+  onNewComment: null,
+  category_id: null,
+  url: null,
+  title: null,
+  identifier: null,
+};
+

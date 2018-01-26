@@ -24,7 +24,7 @@
     "redux-thunk": "^2.2.0"
   },
   "scripts": {
-    "lint2": "eslint src/Header.js",
+    "lint2": "eslint src/Disqus.js",
     "lint": "eslint src/**.js src/**.jsx",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
