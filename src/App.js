@@ -20,7 +20,7 @@ const App = () => (
           <Route exact path="/reply/:replyKey/" component={Reply} />
           <Route exact path="/meeting/:year/:bureau/" component={Meeting} />
           <Route exact path="/search/:keyword" component={Search} />
-          <Route path="/" component={Home} />
+          <Route exact path="/" component={Home} />
         </Switch>
       </Router>
     </GAListener>
