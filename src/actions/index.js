@@ -87,7 +87,7 @@ export function loadMeetings(year) {
   }
 };
 
-export function loadBureauMeetings(year, bureau, page=0, pageSize=10) {
+export function loadBureauMeetings(year, bureau, page=0, pageSize=25) {
   return (dispatch) => {
     const offset = page * pageSize;
     console.log(page, pageSize);
@@ -104,7 +104,7 @@ export function loadBureauMeetings(year, bureau, page=0, pageSize=10) {
   }
 };
 
-export function search(keyword, page=0, pageSize=10) {
+export function search(keyword, page=0, pageSize=25) {
   return (dispatch) => {
     dispatch(() => {
       const offset = page * pageSize;
