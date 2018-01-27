@@ -1,90 +1,97 @@
 import React, { Component } from 'react';
-import {connect} from 'react-redux';
-import { loadMeetings } from './actions';
+import { connect } from 'react-redux';
 import AppBar from 'material-ui/AppBar';
 import Button from 'material-ui/Button';
-import Typography from 'material-ui/Typography';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import Table, {
-TableBody,
-TableCell,
-TableFooter,
-TableHead,
-TablePagination,
-TableRow,
+  TableCell,
+  TableRow,
 } from 'material-ui/Table';
-
+import { loadMeetings } from './actions';
 
 
 class List extends Component {
-  componentDidMount() {
-    const { loadMeetings } = this.props;
-    loadMeetings(2017);
-    loadMeetings(2016);
-    loadMeetings(2015);
-    loadMeetings(2014);
-  }
-
-  renderChunk(c) {
-    return c.map((m) => {
-      return(
-        <TableCell style={{width: '25%', padding:'0'}}>
-          <Link to={"/meeting/" + m.year + "/" + m.bureau.bureau + "/"}>
-            <Button color="secondary" fullWidth={true}>
-            {m.bureau.name_ch}
-            </Button>
-          </Link>
-        </TableCell>
-
-      );
-    });
-  }
-
-  renderYear(year, meetings) {
-    var i,j,chunks=[],size = 4;
-    for (i=0,j=meetings.length; i<j; i+=size) {
-      chunks.push(meetings.slice(i,i+size));
+  static renderYear(year, meetings) {
+    let i = 0;
+    const chunks = [];
+    const size = 4;
+    for (i = 0; i < meetings.length; i += size) {
+      chunks.push(meetings.slice(i, i + size));
     }
+
+    const rows = chunks.map(c =>
+      (
+        <TableRow>
+          { List.renderChunk(c) }
+        </TableRow>
+      ));
 
     return (
       <div>
         <AppBar position="static" color="secondary">
-          <h5>&nbsp;{year-1}&nbsp;至&nbsp;{year}&nbsp;年度</h5>
+          <h5>&nbsp;{year - 1}&nbsp;至&nbsp;{year}&nbsp;年度</h5>
         </AppBar>
-        <Table style={{width: '100%', tableLayout: 'fixed'}}>
-        {chunks.map((c) => { let m = c[0]; return (
-          <TableRow>
-          {this.renderChunk(c)}
-          </TableRow>
-          );
-         })}
+        <Table style={{ width: '100%', tableLayout: 'fixed' }}>
+          {rows}
         </Table>
-      </div>);
+      </div>
+    );
+  }
+
+  static renderChunk(c) {
+    return c.map(m => (
+      (
+        <TableCell>
+          <Link to={`/meeting/${m.year}/${m.bureau.bureau}`}>
+            <Button color="secondary" fullWidth>
+              { m.bureau.name_ch }
+            </Button>
+          </Link>
+        </TableCell>
+      )
+    ));
+  }
+
+  componentDidMount() {
+    const { load } = this.props;
+    load(2017);
+    load(2016);
+    load(2015);
+    load(2014);
   }
 
   render() {
     const { meeting } = this.props;
-    console.log(meeting);
-    console.log(Object.keys(meeting));
+    const keys = Object.keys(meeting).sort().reverse();
+    let elements = null;
     if (meeting) {
-      return (
-        <div>
-          {Object.keys(meeting).sort().reverse().map((k) => { return this.renderYear(k, meeting[k]); })}         
-        </div>);
+      elements = keys.map(k => List.renderYear(k, meeting[k]));
     }
-    return (<div></div>);
+    return (
+      <div>
+        {elements}
+      </div>
+    );
   }
 }
 
-let mapStateToProps = (state) => {
-  console.log(state.meeting[2017]);
-  return {meeting: state.meeting};
-}
+const mapStateToProps = state => ({
+  meeting: state.meeting,
+});
 
-let mapDispatchToProps = (dispatch) => {
-  return { 
-     loadMeetings: (key) => dispatch(loadMeetings(key))
-  };
-}
+const mapDispatchToProps = dispatch => ({
+  load: key => dispatch(loadMeetings(key)),
+});
+
+List.defaultProps = {
+  meeting: null,
+  load: null,
+};
+
+List.propTypes = {
+  meeting: PropTypes.object,
+  load: PropTypes.func,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(List);

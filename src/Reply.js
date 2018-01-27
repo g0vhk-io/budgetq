@@ -21,12 +21,10 @@ class Reply extends Component {
   }
 
   componentDidMount() {
-    const { loadReplyAction, match } = this.props;
-    let { replyKey } = this.props;
-    if (!replyKey) {
-      replyKey = match.params.replyKey;
-    }
-    loadReplyAction(replyKey);
+    const { loadReplyAction, match, replyKey: attr } = this.props;
+    const { replyKey: param } = match.params;
+    const key = attr || param;
+    loadReplyAction(key);
   }
 
   changeTab(evt, value) {
@@ -37,7 +35,7 @@ class Reply extends Component {
     const { reply } = this.props;
     const url = `https://api.g0vhk.io/budget/sharer/${reply.key}`;
     return (
-      <AppBar position="static" color="accent">
+      <AppBar position="static" color="secondary">
         <Toolbar>
           { reply.key } - { reply.member }
           &nbsp;&nbsp;

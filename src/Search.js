@@ -7,6 +7,7 @@ import Toolbar from 'material-ui/Toolbar';
 import TextField from 'material-ui/TextField';
 import IconButton from 'material-ui/IconButton';
 import MeetingTable from './MeetingTable';
+import { search } from './actions';
 
 
 class Search extends Component {
@@ -32,14 +33,14 @@ class Search extends Component {
 
   searchWithParams(props = this.props) {
     const { keyword } = props.match.params;
-    const { search } = props;
-    search(keyword);
+    const { searchAction } = props;
+    searchAction(keyword);
   }
 
   handleChangePage(event, page) {
-    const { search } = this.props;
+    const { searchAction } = this.props;
     const { keyword } = this.props.match.params;
-    search(keyword, page);
+    searchAction(keyword, page);
   }
 
   render() {
@@ -101,10 +102,12 @@ class Search extends Component {
 
 const mapStateToProps = state => ({ result: state.search });
 
-const mapDispatchToProps = () => { };
+const mapDispatchToProps = dispatch => ({
+  searchAction: (keyword, page) => dispatch(search(keyword, page)),
+});
 
 Search.propTypes = {
-  search: PropTypes.func,
+  searchAction: PropTypes.func,
   result: PropTypes.object,
   match: PropTypes.object,
 };
@@ -112,7 +115,7 @@ Search.propTypes = {
 
 Search.defaultProps = {
   result: {},
-  search: null,
+  searchAction: null,
   match: null,
 };
 

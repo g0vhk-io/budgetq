@@ -52,7 +52,7 @@ class MeetingTable extends Component {
           </TableRow>
         </TableHead> }
         <TableBody>
-          { meetings && meetings.map(m => this.renderMeeting(m)) }
+          { meetings && meetings.map(m => MeetingTable.renderMeeting(m)) }
         </TableBody>
       </Table>
     );

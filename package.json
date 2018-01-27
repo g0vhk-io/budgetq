@@ -17,6 +17,7 @@
     "react-helmet": "^5.2.0",
     "react-icons": "^2.2.7",
     "react-redux": "^5.0.6",
+    "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.1.0",
     "react-social-button": "^1.0.2",
@@ -24,7 +25,6 @@
     "redux-thunk": "^2.2.0"
   },
   "scripts": {
-    "lint2": "eslint src/Disqus.js",
     "lint": "eslint src/**.js src/**.jsx",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",

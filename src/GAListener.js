@@ -6,15 +6,15 @@ import ReactGA from 'react-ga';
 ReactGA.initialize('UA-82689420-3');
 
 class GAListener extends Component {
-  componentDidMount() {
-    const { history } = this.props;
-    this.sendPageView(history.location);
-    history.listen(this.sendPageView);
-  }
-
-  sendPageView(location) {
+  static sendPageView(location) {
     ReactGA.set({ page: location.pathname });
     ReactGA.pageview(location.pathname);
+  }
+
+  componentDidMount() {
+    const { history } = this.props;
+    GAListener.sendPageView(history.location);
+    history.listen(GAListener.sendPageView);
   }
 
   render() {
