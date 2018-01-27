@@ -9,11 +9,11 @@ services:
   - docker
 
 script:
-    - npm install --only=dev
+    - npm install
     - npm run lint
-    - docker build -t $ORG/$REPO:$COMMIT .
 
 after_success:
+    - docker build -t $ORG/$REPO:$COMMIT .
     - export TAG='latest'
     - docker tag $ORG/$REPO:$COMMIT $ORG/$REPO:$TAG
     - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
