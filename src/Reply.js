@@ -6,11 +6,16 @@ import Button from 'material-ui/Button';
 import Toolbar from 'material-ui/Toolbar';
 import { Helmet } from 'react-helmet';
 import PropTypes from 'prop-types';
+import Chip from 'material-ui/Chip';
 import Disqus from './Disqus';
 import { loadReply } from './actions';
 
 
 class Reply extends Component {
+  static handleClick(evt) {
+    window.location = `/search/${evt.target.innerText}`;
+  }
+
   constructor(props) {
     super(props);
     this.renderTable = this.renderTable.bind(this);
@@ -77,6 +82,7 @@ class Reply extends Component {
     );
   }
 
+
   renderTable() {
     const { reply } = this.props;
     return (
@@ -109,6 +115,20 @@ class Reply extends Component {
           </tr>
           <tr>
             <td>提問人:</td><td>{ reply.member }</td>
+          </tr>
+          <tr>
+            <td>關鍵字:</td>
+            <td>
+              { reply.keywords.map(k => (
+                <span>
+                  <Chip label={k} onClick={Reply.handleClick} />
+                   &nbsp;&nbsp;
+                </span>))}
+            </td>
+          </tr>
+          <tr>
+            <td><br /></td>
+            <td />
           </tr>
         </tbody>
       </table>
