@@ -44,20 +44,17 @@ class Reply extends Component {
         <Toolbar>
           { reply.key } - { reply.member }
           &nbsp;&nbsp;
-          <a
-            className="fb-xfbml-parse-ignore"
-            target="_blank"
+          <Button 
             href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`}
-          >
-            <Button raised >
-              分享
-            </Button>
-          </a>
+            target="_blank"
+            variant="raised" >
+            分享
+          </Button>
           &nbsp;&nbsp;
           <Button
             href={`https://docs.google.com/forms/d/e/1FAIpQLScn_SK7wtVYHstXJR324vFpe8sFQy8-eSofq8vKpTOAlcvazw/viewform?entry.604171204=${reply.key}&entry.616437323`}
             target="_blank"
-            raised
+            variant="raised"
           >
             報告問題
           </Button>
