@@ -22,6 +22,16 @@ const styles = () => ({
 
 
 class Home extends Component {
+  static propTypes = {
+      classes: PropTypes.object,
+      history: PropTypes.object,
+  };
+
+  static defaultProps = {
+      classes: null,
+      history: null,
+  };
+
   constructor(props) {
     super(props);
     this.state = { search: '' };
@@ -72,16 +82,6 @@ class Home extends Component {
     );
   }
 }
-
-Home.propTypes = {
-  classes: PropTypes.object,
-  history: PropTypes.object,
-};
-
-Home.defaultProps = {
-  classes: null,
-  history: null,
-};
 
 const mapStateToProps = () => ({});
 
