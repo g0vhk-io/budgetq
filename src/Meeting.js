@@ -31,20 +31,20 @@ class Meeting extends Component {
     const { year } = this.props.match.params;
     return (
       <div>
-        <AppBar position="static" color="accent">
+        <AppBar position="static" color="secondary">
           <Toolbar>
             {year - 1}&nbsp;至&nbsp;{year}&nbsp;年度&nbsp;&nbsp;
             {bureauMeeting.bureau}
           </Toolbar>
         </AppBar>
         { bureauMeeting.meetings &&
-          <MeetingTable
-            meetings={bureauMeeting.meetings}
-            offset={bureauMeeting.offset}
-            total={bureauMeeting.total}
-            limit={bureauMeeting.limit}
-            handleChangePage={this.handleChangePage}
-          />
+        <MeetingTable
+          meetings={bureauMeeting.meetings}
+          offset={bureauMeeting.offset}
+          total={bureauMeeting.total}
+          limit={bureauMeeting.limit}
+          handleChangePage={this.handleChangePage}
+        />
         }
       </div>
     );
@@ -53,11 +53,9 @@ class Meeting extends Component {
 
 const mapStateToProps = state => ({ bureauMeeting: state.bureauMeeting });
 
-const mapDispatchToProps = dispatch => (
-  {
-    load: (year, bureau, page) => dispatch(loadBureauMeetings(year, bureau, page)),
-  }
-);
+const mapDispatchToProps = dispatch => ({
+  load: (year, bureau, page) => dispatch(loadBureauMeetings(year, bureau, page)),
+});
 
 Meeting.defaultProps = {
   load: null,
