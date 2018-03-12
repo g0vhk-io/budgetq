@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import AppBar from 'material-ui/AppBar';
 import { withStyles } from 'material-ui/styles';
 import Toolbar from 'material-ui/Toolbar';
-import { connect } from 'react-redux';
 import HomeIcon from 'material-ui-icons/Home';
 import IconButton from 'material-ui/IconButton';
 import TiSocialFacebook from 'react-icons/lib/ti/social-facebook';
@@ -95,9 +94,5 @@ Header.defaultProps = {
   classes: null,
 };
 
-const mapStateToProps = () => ({});
-
-const mapDispatchToProps = () => ({});
-
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Header));
+export default withStyles(styles)(Header);
 
