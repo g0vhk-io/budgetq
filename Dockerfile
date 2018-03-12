@@ -3,7 +3,7 @@ RUN npm install -g serve
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 COPY package.json /usr/src/app/
-RUN npm install
+RUN yarn install --pure-lockfile
 COPY . /usr/src/app
 RUN npm run build
 CMD serve -s build -p 3000
