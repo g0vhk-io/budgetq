@@ -12,16 +12,15 @@ class List extends Component {
   static renderYear(year, meetings) {
     const size = 4;
     const chunks = meetings.map((_, i) => meetings.slice(i, i + size));
-
-    const rows = chunks.map(c =>
+    const rows = chunks.map((c, i) =>
       (
-        <TableRow>
+        <TableRow key={`${year}.${i}`}>
           { List.renderChunk(c) }
         </TableRow>
       ));
 
     return (
-      <div>
+      <div key={year}>
         <AppBar position="static" color="secondary">
           <h5>&nbsp;{year - 1}&nbsp;至&nbsp;{year}&nbsp;年度</h5>
         </AppBar>
