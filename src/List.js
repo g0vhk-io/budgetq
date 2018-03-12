@@ -13,12 +13,10 @@ import { loadMeetings } from './actions';
 
 class List extends Component {
   static renderYear(year, meetings) {
-    let i = 0;
-    const chunks = [];
     const size = 4;
-    for (i = 0; i < meetings.length; i += size) {
-      chunks.push(meetings.slice(i, i + size));
-    }
+    const chunks = meetings.map((_, i) => {
+      return meetings.slice(i, i + size)
+    });
 
     const rows = chunks.map(c =>
       (
@@ -42,7 +40,7 @@ class List extends Component {
   static renderChunk(c) {
     return c.map(m => (
       (
-        <TableCell>
+        <TableCell key={m.bureau.name_ch}>
           <Link to={`/meeting/${m.year}/${m.bureau.bureau}`}>
             <Button color="secondary" fullWidth>
               { m.bureau.name_ch }
