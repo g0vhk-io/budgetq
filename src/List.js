@@ -11,9 +11,7 @@ import Table, {
 class List extends Component {
   static renderYear(year, meetings) {
     const size = 4;
-    const chunks = meetings.map((_, i) => {
-      return meetings.slice(i, i + size)
-    });
+    const chunks = meetings.map((_, i) => meetings.slice(i, i + size));
 
     const rows = chunks.map(c =>
       (

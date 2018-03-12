@@ -8,7 +8,7 @@ import IconButton from 'material-ui/IconButton';
 import PropTypes from 'prop-types';
 import SearchIcon from 'material-ui-icons/Search';
 import List from './List';
-import { loadMeetings } from "./actions";
+import { loadMeetings } from './actions';
 
 
 const styles = () => ({
@@ -24,13 +24,15 @@ const styles = () => ({
 
 class Home extends Component {
   static propTypes = {
-      classes: PropTypes.object,
-      history: PropTypes.object,
+    classes: PropTypes.object,
+    history: PropTypes.object,
+    load: PropTypes.func.isRequired,
+    meeting: PropTypes.object.isRequired,
   };
 
   static defaultProps = {
-      classes: null,
-      history: null,
+    classes: null,
+    history: null,
   };
 
   constructor(props) {
@@ -39,7 +41,7 @@ class Home extends Component {
   }
 
   setSearchInput(search) {
-    this.setState({ search })
+    this.setState({ search });
   }
 
   render() {
@@ -85,11 +87,11 @@ class Home extends Component {
 }
 
 const mapStateToProps = state => ({
-    meeting: state.meeting,
+  meeting: state.meeting,
 });
 
 const mapDispatchToProps = dispatch => ({
-    load: key => dispatch(loadMeetings(key)),
+  load: key => dispatch(loadMeetings(key)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Home));
