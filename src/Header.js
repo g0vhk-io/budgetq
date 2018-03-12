@@ -7,7 +7,7 @@ import HomeIcon from 'material-ui-icons/Home';
 import IconButton from 'material-ui/IconButton';
 import TiSocialFacebook from 'react-icons/lib/ti/social-facebook';
 import TiSocialGithub from 'react-icons/lib/ti/social-github';
-
+import { withRouter } from 'react-router';
 
 const styles = () => ({
   tool: {
@@ -94,5 +94,5 @@ Header.defaultProps = {
   classes: null,
 };
 
-export default withStyles(styles)(Header);
+export default withRouter(withStyles(styles)(Header));
 
