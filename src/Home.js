@@ -8,6 +8,7 @@ import IconButton from 'material-ui/IconButton';
 import PropTypes from 'prop-types';
 import SearchIcon from 'material-ui-icons/Search';
 import List from './List';
+import { loadMeetings } from "./actions";
 
 
 const styles = () => ({
@@ -77,14 +78,18 @@ class Home extends Component {
             </IconButton>
           </Toolbar>
         </AppBar>
-        <List />
+        <List load={this.props.load} meeting={this.props.meeting} />
       </div>
     );
   }
 }
 
-const mapStateToProps = () => ({});
+const mapStateToProps = state => ({
+    meeting: state.meeting,
+});
 
-const mapDispatchToProps = () => ({});
+const mapDispatchToProps = dispatch => ({
+    load: key => dispatch(loadMeetings(key)),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Home));

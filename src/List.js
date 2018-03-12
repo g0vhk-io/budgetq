@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import AppBar from 'material-ui/AppBar';
 import Button from 'material-ui/Button';
 import { Link } from 'react-router-dom';
@@ -8,8 +7,6 @@ import Table, {
   TableCell,
   TableRow,
 } from 'material-ui/Table';
-import { loadMeetings } from './actions';
-
 
 class List extends Component {
   static renderYear(year, meetings) {
@@ -74,14 +71,6 @@ class List extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  meeting: state.meeting,
-});
-
-const mapDispatchToProps = dispatch => ({
-  load: key => dispatch(loadMeetings(key)),
-});
-
 List.defaultProps = {
   meeting: null,
   load: null,
@@ -92,4 +81,4 @@ List.propTypes = {
   load: PropTypes.func,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(List);
+export default List;
