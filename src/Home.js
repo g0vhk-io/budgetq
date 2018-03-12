@@ -24,17 +24,15 @@ const styles = () => ({
 class Home extends Component {
   constructor(props) {
     super(props);
-    this.search = null;
-    this.setSearchInput = this.setSearchInput.bind(this);
+    this.state = { search: '' };
   }
 
-  setSearchInput(target) {
-    this.search = target;
+  setSearchInput(search) {
+    this.setState({ search })
   }
 
   render() {
     const { classes, history } = this.props;
-    const { setSearchInput } = this;
     return (
       <div>
         <AppBar position="static" color="default">
@@ -43,12 +41,13 @@ class Home extends Component {
               id="search"
               placeholder="關鍵字"
               margin="normal"
-              inputRef={input => setSearchInput(input)}
+              onChange={e => this.setSearchInput(e.target.value)}
+              value={this.state.search}
               onKeyPress={(ev) => {
                 if (ev.key === 'Enter') {
                   ev.target.blur();
                   ev.preventDefault();
-                  history.push(`/search/${ev.target.value}`);
+                  history.push(`/search/${this.state.search}`);
                 }
               }}
               className={classes.search}
@@ -59,7 +58,7 @@ class Home extends Component {
               onClick={
                 (ev) => {
                   ev.preventDefault();
-                  const keyword = this.search.value;
+                  const keyword = this.state.search;
                   history.push(`/search/${keyword}`);
                 }
               }
