@@ -12,7 +12,7 @@ import Table, {
 class MeetingTable extends Component {
   static renderMeeting(meeting) {
     return (
-      <TableRow>
+      <TableRow key={`${meeting.year}.${meeting.reply_serial_no}`}>
         <TableCell style={{ width: '15%', padding: '0', paddingLeft: '1em' }}>
           { meeting.year } 年 <br /> { meeting.reply_serial_no } { meeting.member } <br />
         </TableCell>
