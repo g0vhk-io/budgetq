@@ -40,6 +40,14 @@ class Home extends Component {
     this.state = { search: '' };
   }
 
+  componentDidMount() {
+    const { load } = this.props;
+    load(2017);
+    load(2016);
+    load(2015);
+    load(2014);
+  }
+
   setSearchInput(search) {
     this.setState({ search });
   }
@@ -80,7 +88,7 @@ class Home extends Component {
             </IconButton>
           </Toolbar>
         </AppBar>
-        <List load={this.props.load} meeting={this.props.meeting} />
+        <List meeting={this.props.meeting} />
       </div>
     );
   }
