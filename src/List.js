@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import Table, {
   TableCell,
   TableRow,
+  TableBody,
 } from 'material-ui/Table';
 
 function renderChunks(chunks) {
@@ -39,20 +40,20 @@ function Year({ year, meetings }) {
         <h5>&nbsp;{year - 1}&nbsp;至&nbsp;{year}&nbsp;年度</h5>
       </AppBar>
       <Table style={{ width: '100%', tableLayout: 'fixed' }}>
-        {rows}
+        <TableBody>{rows}</TableBody>
       </Table>
     </div>
   );
 }
 
 Year.propTypes = {
-  year: PropTypes.number.isRequired,
+  year: PropTypes.string.isRequired,
   meetings: PropTypes.array.isRequired,
 };
 
 function List({ meeting }) {
   const keys = Object.keys(meeting).sort().reverse();
-  return <div>{keys.map(k => <Year year={k} meetings={meeting[k]} />)}</div>;
+  return <div>{keys.map(k => <Year key={k} year={k} meetings={meeting[k]} />)}</div>;
 }
 
 List.propTypes = {
