@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
-import { withRouter } from 'react-router';
 import { loadBureauMeetings } from './actions';
 import MeetingTable from './MeetingTable';
 

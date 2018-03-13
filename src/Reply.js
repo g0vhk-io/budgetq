@@ -106,44 +106,44 @@ class Reply extends Component {
     return (
       <table>
         <tbody>
-        <tr>
-          <td>年份:</td><td>{ reply.year }</td>
-        </tr>
-        <tr>
-          <td>部門:</td><td>{ reply.bureau }</td>
-        </tr>
-        <tr>
-          <td>總目:</td><td>{ reply.head }</td>
-        </tr>
-        <tr>
-          <td>分目:</td><td>{ reply.sub_head }</td>
-        </tr>
-        <tr>
-          <td>綱領:</td><td>{ reply.programme }</td>
-        </tr>
-        <tr>
-          <td>管制人員:</td>
-          <td>
-            { reply.controlling_officer_title }
-            { reply.controlling_officer_name }
-          </td>
-        </tr>
-        <tr>
-          <td>局長:</td><td>{ reply.director }</td>
-        </tr>
-        <tr>
-          <td>提問人:</td><td>{ reply.member }</td>
-        </tr>
-        <tr>
-          <td>關鍵字:</td>
-          <td>
-            { reply.keywords.map(k => <StyledSearchChip keyword={k} key={k} />)}
-          </td>
-        </tr>
-        <tr>
-          <td><br /></td>
-          <td />
-        </tr>
+          <tr>
+            <td>年份:</td><td>{ reply.year }</td>
+          </tr>
+          <tr>
+            <td>部門:</td><td>{ reply.bureau }</td>
+          </tr>
+          <tr>
+            <td>總目:</td><td>{ reply.head }</td>
+          </tr>
+          <tr>
+            <td>分目:</td><td>{ reply.sub_head }</td>
+          </tr>
+          <tr>
+            <td>綱領:</td><td>{ reply.programme }</td>
+          </tr>
+          <tr>
+            <td>管制人員:</td>
+            <td>
+              { reply.controlling_officer_title }
+              { reply.controlling_officer_name }
+            </td>
+          </tr>
+          <tr>
+            <td>局長:</td><td>{ reply.director }</td>
+          </tr>
+          <tr>
+            <td>提問人:</td><td>{ reply.member }</td>
+          </tr>
+          <tr>
+            <td>關鍵字:</td>
+            <td>
+              { reply.keywords.map(k => <StyledSearchChip keyword={k} key={k} />)}
+            </td>
+          </tr>
+          <tr>
+            <td><br /></td>
+            <td />
+          </tr>
         </tbody>
       </table>
     );
