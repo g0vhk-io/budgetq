@@ -1,21 +1,39 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Tabs, { Tab } from 'material-ui/Tabs';
 import AppBar from 'material-ui/AppBar';
 import Button from 'material-ui/Button';
 import Toolbar from 'material-ui/Toolbar';
+import { withStyles } from 'material-ui/styles';
 import { Helmet } from 'react-helmet';
 import PropTypes from 'prop-types';
 import Chip from 'material-ui/Chip';
 import Disqus from './Disqus';
 import { loadReply } from './actions';
 
+function SearchChip({ keyword, classes }) {
+  return (
+    <Link to={`/search/${keyword}`} className={classes.link}>
+      <Chip label={keyword} />
+    </Link>
+  );
+}
+
+SearchChip.propTypes = {
+  keyword: PropTypes.string.isRequired,
+  classes: PropTypes.object.isRequired,
+};
+
+const StyledSearchChip = withStyles({
+  link: {
+    'text-decoration': 'none',
+    'margin-left': '0.25rem',
+    'margin-right': '0.25rem',
+  },
+})(SearchChip);
 
 class Reply extends Component {
-  static handleClick(evt) {
-    window.location = `/search/${evt.target.innerText}`;
-  }
-
   constructor(props) {
     super(props);
     this.renderTable = this.renderTable.bind(this);
@@ -88,48 +106,44 @@ class Reply extends Component {
     return (
       <table>
         <tbody>
-          <tr>
-            <td>年份:</td><td>{ reply.year }</td>
-          </tr>
-          <tr>
-            <td>部門:</td><td>{ reply.bureau }</td>
-          </tr>
-          <tr>
-            <td>總目:</td><td>{ reply.head }</td>
-          </tr>
-          <tr>
-            <td>分目:</td><td>{ reply.sub_head }</td>
-          </tr>
-          <tr>
-            <td>綱領:</td><td>{ reply.programme }</td>
-          </tr>
-          <tr>
-            <td>管制人員:</td>
-            <td>
-              { reply.controlling_officer_title }
-              { reply.controlling_officer_name }
-            </td>
-          </tr>
-          <tr>
-            <td>局長:</td><td>{ reply.director }</td>
-          </tr>
-          <tr>
-            <td>提問人:</td><td>{ reply.member }</td>
-          </tr>
-          <tr>
-            <td>關鍵字:</td>
-            <td>
-              { reply.keywords.map(k => (
-                <span>
-                  <Chip label={k} onClick={Reply.handleClick} />
-                   &nbsp;&nbsp;
-                </span>))}
-            </td>
-          </tr>
-          <tr>
-            <td><br /></td>
-            <td />
-          </tr>
+        <tr>
+          <td>年份:</td><td>{ reply.year }</td>
+        </tr>
+        <tr>
+          <td>部門:</td><td>{ reply.bureau }</td>
+        </tr>
+        <tr>
+          <td>總目:</td><td>{ reply.head }</td>
+        </tr>
+        <tr>
+          <td>分目:</td><td>{ reply.sub_head }</td>
+        </tr>
+        <tr>
+          <td>綱領:</td><td>{ reply.programme }</td>
+        </tr>
+        <tr>
+          <td>管制人員:</td>
+          <td>
+            { reply.controlling_officer_title }
+            { reply.controlling_officer_name }
+          </td>
+        </tr>
+        <tr>
+          <td>局長:</td><td>{ reply.director }</td>
+        </tr>
+        <tr>
+          <td>提問人:</td><td>{ reply.member }</td>
+        </tr>
+        <tr>
+          <td>關鍵字:</td>
+          <td>
+            { reply.keywords.map(k => <StyledSearchChip keyword={k} key={k} />)}
+          </td>
+        </tr>
+        <tr>
+          <td><br /></td>
+          <td />
+        </tr>
         </tbody>
       </table>
     );
@@ -167,8 +181,7 @@ class Reply extends Component {
 
 const mapStateToProps = state => ({ reply: state.reply.data, loading: state.reply.loading });
 
-const mapDispatchToProps = dispatch =>
-  ({ loadReplyAction: key => dispatch(loadReply(key)) });
+const mapDispatchToProps = dispatch => ({ loadReplyAction: key => dispatch(loadReply(key)) });
 
 Reply.propTypes = {
   loadReplyAction: PropTypes.func.isRequired,
