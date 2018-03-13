@@ -28,6 +28,18 @@ TitleBar.defaultProps = {
 };
 
 class Meeting extends Component {
+  static propTypes = {
+    load: PropTypes.func,
+    match: PropTypes.object,
+    bureauMeeting: PropTypes.object,
+  };
+
+  static defaultProps = {
+    load: null,
+    match: null,
+    bureauMeeting: null,
+  };
+
   constructor(props) {
     super(props);
     this.handleChangePage = this.handleChangePage.bind(this);
@@ -71,16 +83,4 @@ const mapDispatchToProps = dispatch => ({
   load: (year, bureau, page) => dispatch(loadBureauMeetings(year, bureau, page)),
 });
 
-Meeting.defaultProps = {
-  load: null,
-  match: null,
-  bureauMeeting: null,
-};
-
-Meeting.propTypes = {
-  load: PropTypes.func,
-  match: PropTypes.object,
-  bureauMeeting: PropTypes.object,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Meeting));
+export default connect(mapStateToProps, mapDispatchToProps)(Meeting);
