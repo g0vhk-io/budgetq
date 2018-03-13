@@ -171,10 +171,10 @@ const mapDispatchToProps = dispatch =>
   ({ loadReplyAction: key => dispatch(loadReply(key)) });
 
 Reply.propTypes = {
-  loadReplyAction: PropTypes.func,
+  loadReplyAction: PropTypes.func.isRequired,
   match: PropTypes.object,
   replyKey: PropTypes.string,
-  reply: PropTypes.string,
+  reply: PropTypes.object,
   key: PropTypes.string,
   loading: PropTypes.bool,
 };
@@ -182,7 +182,6 @@ Reply.propTypes = {
 
 Reply.defaultProps = {
   loading: null,
-  loadReplyAction: null,
   match: null,
   reply: null,
   replyKey: null,
