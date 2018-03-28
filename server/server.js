@@ -3,7 +3,7 @@ const helmet = require('helmet');
 const morgan = require('morgan');
 const serveStatic = require('serve-static');
 
-const { PRODUCTION, PORT } = require('./env');
+const { PRODUCTION, PORT } = require('../env');
 
 const app = express();
 

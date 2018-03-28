@@ -1,6 +1,6 @@
 /* eslint-disable global-require */
 const assets = require('../dist/assets.json');
-const { PRODUCTION } = require('./env');
+const { PRODUCTION } = require('../env');
 
 const scripts = ['manifest', 'vendor', 'app'].reduce((arr, name) => {
   if (name in assets) {
