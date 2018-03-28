@@ -6,11 +6,14 @@
   "dependencies": {
     "babel-cli": "^6.26.0",
     "babel-preset-es2015": "^6.24.1",
+    "ejs": "^2.5.8",
     "express": "^4.16.2",
     "gh-pages": "^1.1.0",
+    "helmet": "^3.12.0",
     "history": "^4.7.2",
     "material-ui": "^1.0.0-beta.28",
     "material-ui-icons": "^1.0.0-beta.17",
+    "morgan": "^1.9.0",
     "prop-types": "^15.6.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
@@ -24,24 +27,40 @@
     "react-scripts": "1.1.0",
     "react-social-button": "^1.0.2",
     "redux": "^3.7.2",
-    "redux-thunk": "^2.2.0"
+    "redux-thunk": "^2.2.0",
+    "serve-static": "^1.13.2",
+    "url-loader": "^1.0.1"
   },
   "scripts": {
-    "lint": "eslint src/**.js src/**.jsx --fix",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
-    "start": "REACT_APP_ENDPOINT=${ENDPOINT} react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "lint": "eslint --ext js,jsx --fix",
+    "dev": "node server/server"
   },
   "devDependencies": {
+    "assets-webpack-plugin": "^3.5.1",
+    "babel-core": "^6.26.0",
     "babel-eslint": "^8.2.1",
+    "babel-loader": "^7.1.4",
+    "babel-plugin-syntax-object-rest-spread": "^6.13.0",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
+    "chokidar": "^2.0.3",
+    "css-loader": "^0.28.11",
     "eslint": "^4.16.0",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.5.1",
-    "react-social-icons": "^2.8.1"
+    "extract-text-webpack-plugin": "^3.0.2",
+    "friendly-errors-webpack-plugin": "^1.6.1",
+    "react-loadable": "^5.3.1",
+    "react-social-icons": "^2.8.1",
+    "style-loader": "^0.20.3",
+    "webpack": "^3.6.0",
+    "webpack-dev-middleware": "^2.0.0y",
+    "webpack-hot-middleware": "^2.21.2",
+    "webpack-merge": "^4.1.2",
+    "webpack-node-externals": "^1.6.0"
   }
 }
