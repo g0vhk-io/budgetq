@@ -11,3 +11,5 @@ RUN yarn install --pure-lockfile && \
     yarn install --production --pure-lockfile
 
 ENV NODE_ENV production
+
+CMD ["yarn", "start"]
