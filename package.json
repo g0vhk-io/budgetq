@@ -54,6 +54,7 @@
     "eslint-plugin-react": "^7.5.1",
     "extract-text-webpack-plugin": "^3.0.2",
     "friendly-errors-webpack-plugin": "^1.6.1",
+    "nodemon": "^1.17.2",
     "optimize-css-assets-webpack-plugin": "^3.0.0",
     "react-loadable": "^5.3.1",
     "react-social-icons": "^2.8.1",
