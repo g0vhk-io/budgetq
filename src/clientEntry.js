@@ -18,6 +18,17 @@ const store = createStore({
 
 const history = createHistory();
 
+/* globals window */
+/* eslint-disable */
+window.dataLayer = window.dataLayer || [];
+function gtag(){window.dataLayer.push(arguments);}
+gtag('js', new Date());
+/* eslint-enable */
+
+history.listen((location) => {
+  window.gtag('config', 'UA-82689420-3', { page_path: location });
+});
+
 ReactDOM.hydrate(
   <Provider store={store}>
     <Router history={history}>

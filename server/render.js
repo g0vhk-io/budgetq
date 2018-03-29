@@ -18,44 +18,42 @@ if ('css' in assets.app) {
 let createApp = require('../lib/app').createApp;
 
 if (!PRODUCTION) {
+  console.log('Compile for SSR');
   const webpack = require('webpack');
+  const bundleCache = require.resolve('../lib/app');
   const serverConfig = require('../build/webpack.server.conf');
   const compiler = webpack(serverConfig);
   compiler.watch({
     ignored: /node_modules/,
     polling: true,
   }, (err, stats) => {
+    console.log('Webpack update SSR bundle');
     if (err) {
       console.error(err);
     } else {
-      console.log(stats.toString('detailed'));
+      console.log(stats.toString('minimal'));
+      delete require.cache[bundleCache];
+      // eslint-disable-next-line prefer-destructuring
+      createApp = require('../lib/app').createApp;
     }
-  });
-
-  const chokidar = require('chokidar');
-  const watcher = chokidar.watch('./lib/app');
-  const bundleCache = require.resolve('../lib/app');
-  watcher.on('change', () => {
-    delete require.cache[bundleCache];
-    // eslint-disable-next-line prefer-destructuring
-    createApp = require('../lib/app').createApp;
   });
 }
 
 module.exports = function (app) {
   app.get('*', (req, res) => {
-    const { content, context, store } = createApp({ location: req.url });
-    if (context.url) {
-      res.redirect(302, context.url);
-    } else {
-      res.render('page', {
-        scripts,
-        styles,
-        content,
-        context,
-        store: store.getState(),
+    createApp({ location: req.url })
+      .then(({ content, context, store }) => {
+        if (context && context.url) {
+          res.redirect(302, context.url);
+        } else {
+          res.render('page', {
+            scripts,
+            styles,
+            content,
+            store: store.getState(),
+          });
+        }
+        res.end();
       });
-    }
-    res.end();
   });
 };

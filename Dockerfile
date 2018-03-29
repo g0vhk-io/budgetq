@@ -1,10 +1,13 @@
-FROM node:6.11.0
-RUN npm install -g serve
-RUN mkdir -p /usr/src/app
-WORKDIR /usr/src/app
-COPY package.json /usr/src/app/
-RUN npm install
-COPY . /usr/src/app
-RUN npm run build
-CMD serve -s build -p 3000
+FROM node:8-alpine
+
+ENV PORT 3000
 EXPOSE 3000
+
+WORKDIR /app
+COPY . /app
+
+RUN yarn install --pure-lockfile && \
+    yarn build && \
+    yarn install --production --pure-lockfile
+
+ENV NODE_ENV production

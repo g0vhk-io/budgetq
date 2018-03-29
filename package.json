@@ -32,7 +32,10 @@
   },
   "scripts": {
     "lint": "eslint --ext js,jsx --fix",
-    "dev": "node server/server"
+    "dev": "node server/server",
+    "build": "yarn build:frontend && yarn build:backend",
+    "build:frontend": "webpack --config build/webpack.prod.conf.js",
+    "build:backend": "webpack --config build/webpack.server.conf.js"
   },
   "devDependencies": {
     "assets-webpack-plugin": "^3.5.1",
@@ -53,6 +56,8 @@
     "eslint-plugin-react": "^7.5.1",
     "extract-text-webpack-plugin": "^3.0.2",
     "friendly-errors-webpack-plugin": "^1.6.1",
+    "nodemon": "^1.17.2",
+    "optimize-css-assets-webpack-plugin": "^3.0.0",
     "react-loadable": "^5.3.1",
     "react-social-icons": "^2.8.1",
     "style-loader": "^0.20.3",
