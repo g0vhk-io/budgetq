@@ -1,0 +1,19 @@
+{
+  "presets": [
+    ["env", {
+      "targets": {
+        "uglify": true,
+        "browser": ["latest 5 version", "Safari > 11"],
+        "node": "current"
+      },
+      "modules": false,
+      "useBuiltIns": true
+    }],
+    "react"
+  ],
+  "plugins": [
+    "syntax-object-rest-spread",
+    "transform-object-rest-spread",
+    "transform-class-properties"
+  ]
+}

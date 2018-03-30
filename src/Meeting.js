@@ -27,6 +27,11 @@ TitleBar.defaultProps = {
 };
 
 class Meeting extends Component {
+  static fetchData({ store, match }) {
+    const { year, bureau } = match.params;
+    return store.dispatch(loadBureauMeetings(year, bureau));
+  }
+
   static propTypes = {
     load: PropTypes.func,
     match: PropTypes.object,

@@ -7,7 +7,8 @@
   "rules": {
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "react/forbid-prop-types": ["error", {"forbid": ["any"]}],
-    "jsx-a11y/anchor-is-valid": ["warn"] 
+    "jsx-a11y/anchor-is-valid": ["warn"],
+    "import/no-extraneous-dependencies": ["warn"]
   },
   "parser": "babel-eslint"
 }

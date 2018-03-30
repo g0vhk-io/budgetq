@@ -34,6 +34,11 @@ const StyledSearchChip = withStyles({
 })(SearchChip);
 
 class Reply extends Component {
+  static fetchData({ store, match }) {
+    const { replyKey: param } = match.params;
+    return store.dispatch(loadReply(param));
+  }
+
   constructor(props) {
     super(props);
     this.renderTable = this.renderTable.bind(this);

@@ -26,7 +26,11 @@ function renderChunks(chunks) {
 
 function Year({ year, meetings, classes }) {
   const size = 4;
-  const chunks = meetings.map((_, i) => meetings.slice(i, i + size));
+  const chunks = [];
+  const len = meetings.length - 1;
+  for (let i = 0; i < len; i += size) {
+    chunks.push(meetings.slice(i, i + size));
+  }
   const rows = chunks.map((c, i) =>
     (
       // eslint-disable-next-line react/no-array-index-key

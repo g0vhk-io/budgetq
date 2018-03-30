@@ -27,8 +27,7 @@ const styles = () => ({
   },
 });
 
-const Header = (props) => {
-  const { classes, history } = props;
+const Header = ({ classes, history }) => {
   return (
     <div>
       <AppBar position="static" className={classes.root}>
@@ -85,13 +84,12 @@ const Header = (props) => {
 
 Header.propTypes = {
   history: PropTypes.object,
-  classes: PropTypes.object,
+  classes: PropTypes.object.isRequired,
 };
 
 
 Header.defaultProps = {
   history: null,
-  classes: null,
 };
 
 export default withRouter(withStyles(styles)(Header));

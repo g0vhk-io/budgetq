@@ -11,9 +11,13 @@ import { search } from './actions';
 
 
 class Search extends Component {
+  static fetchData() {
+    return Promise.resolve();
+  }
+
   static propTypes = {
     history: PropTypes.object.isRequired,
-  }
+  };
 
   constructor(props) {
     super(props);

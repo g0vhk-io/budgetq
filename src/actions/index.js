@@ -1,48 +1,44 @@
+import axios from 'axios';
 import { LOAD_REPLY, LOAD_MEETINGS, LOAD_BUREAU_MEETINGS, LOAD_SEARCH } from '../reducers/const';
-
-
-const ENDPOINT = process.env.REACT_APP_ENDPOINT || "https://api.g0vhk.io";
-
+import { ENDPOINT } from '../../env';
 
 function updateMeetings(year, meetings) {
   return {
+    year,
     type: LOAD_MEETINGS,
-    year: year,
-    value: meetings
+    value: meetings,
   };
 }
 
 function updateBureauMeetings(year, bureau, meetings, offset, limit, total) {
   return {
-    type: LOAD_BUREAU_MEETINGS,
-    bureau: bureau,
-    year: year,
+    bureau,
+    year,
+    offset,
+    limit,
+    total,
     value: meetings,
-    offset: offset,
-    limit: limit,
-    total: total
+    type: LOAD_BUREAU_MEETINGS,
   };
 }
 
 function updateSearch(keyword, meetings, offset, limit, total) {
   return {
+    keyword,
+    offset,
+    limit,
+    total,
     type: LOAD_SEARCH,
-    keyword: keyword,
     value: meetings,
-    offset: offset,
-    limit: limit,
-    total: total
   };
 }
 
 
-
-
-function updateReply(reply, loading=false) {
+function updateReply(reply, loading = false) {
   return {
+    loading,
     type: LOAD_REPLY,
-    loading: loading,
-    value: reply
+    value: reply,
   };
 }
 
@@ -51,73 +47,78 @@ function updateReplyError(error) {
   return {
     type: LOAD_REPLY,
     loading: false,
-    value: null
+    value: null,
   };
 }
-
 
 export function loadReply(replyId) {
   return (dispatch) => {
     dispatch(updateReply(null, true));
-    return fetch(ENDPOINT + '/budget/replies/' + replyId + '/').then(
-      response => {
-        if (response.ok) {
-          response.json().then((json) => dispatch(updateReply(json)));
+    return axios.get(`${ENDPOINT}/budget/replies/${replyId}/`)
+      .then(({ status, data }) => {
+        if (status === 200) {
+          dispatch(updateReply(data));
         } else {
-          dispatch(updateReplyError(null))
+          dispatch(updateReplyError(null));
         }
-      },
-      error => dispatch(updateReplyError(error))
-    )
-  }
-};
+      })
+      .catch(error => dispatch(updateReplyError(error)));
+  };
+}
 
 export function loadMeetings(year) {
-  return (dispatch) => {
-    return fetch(ENDPOINT + '/budget/meeting/' + year + '/').then(
-      response => {
-        if (response.ok) {
-          response.json().then((json) => dispatch(updateMeetings(year, json)));
-        } else {
-          dispatch(updateMeetings(year, []))
-        }
-      },
-      error => dispatch(updateMeetings(year, []))
-    )
-  }
-};
+  return dispatch => axios.get(`${ENDPOINT}/budget/meeting/${year}/`)
+    .then(({ status, data }) => {
+      if (status === 200) {
+        dispatch(updateMeetings(year, data));
+      } else {
+        dispatch(updateMeetings(year, []));
+      }
+    })
+    .catch(() => dispatch(updateMeetings(year, [])))
+}
 
-export function loadBureauMeetings(year, bureau, page=0, pageSize=25) {
+export function loadBureauMeetings(year, bureau, page = 0, pageSize = 25) {
   return (dispatch) => {
     const offset = page * pageSize;
-    return fetch(ENDPOINT + '/budget/replies/' + year + '/' + bureau + '/?offset=' + offset + '&limit=' + pageSize  ).then(
-      response => {
-        if (response.ok) {
-          response.json().then((json) => dispatch(updateBureauMeetings(year, bureau, json.data, json.offset, json.limit, json.total)));
+    return axios.get(`${ENDPOINT}/budget/replies/${year}/${bureau}/?offset=${offset}&limit=${pageSize}`)
+      .then(({ status, data }) => {
+        if (status === 200) {
+          dispatch(updateBureauMeetings(
+            year,
+            bureau,
+            data.data,
+            data.offset,
+            data.limit,
+            data.total,
+          ));
         } else {
-          dispatch(updateBureauMeetings(year, bureau, [], 0, 0, 0))
+          dispatch(updateBureauMeetings(year, bureau, [], 0, 0, 0));
         }
-      },
-      error => dispatch(updateBureauMeetings(year, bureau, [], 0, 0, 0))
-    )
-  }
-};
+      })
+      .catch(() => dispatch(updateBureauMeetings(year, bureau, [], 0, 0, 0)));
+  };
+}
 
-export function search(keyword, page=0, pageSize=25) {
+export function search(keyword, page = 0, pageSize = 25) {
   return (dispatch) => {
     dispatch(() => {
       const offset = page * pageSize;
-      return fetch(ENDPOINT + '/budget/search/' + keyword + '/?offset=' + offset + '&limit=' + pageSize  ).then(
-      response => {
-        if (response.ok) {
-          response.json().then((json) => dispatch(updateSearch(keyword, json.data, json.offset, json.limit, json.total)));
-        } else {
-          dispatch(updateSearch(keyword, [], 0, 0, 0))
-        }
-      },
-      error => dispatch(updateSearch(keyword, [], 0, 0, 0))
-    )
-
+      return axios.get(`${ENDPOINT}/budget/search/${keyword}/?offset=${offset}&limit=${pageSize}`)
+        .then(({ status, data }) => {
+          if (status === 200) {
+            dispatch(updateSearch(
+              keyword,
+              data.data,
+              data.offset,
+              data.limit,
+              data.total,
+            ));
+          } else {
+            dispatch(updateSearch(keyword, [], 0, 0, 0));
+          }
+        })
+        .catch(() => dispatch(updateSearch(keyword, [], 0, 0, 0)));
     });
-  }
-};
+  };
+}
