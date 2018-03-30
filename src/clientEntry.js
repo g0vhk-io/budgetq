@@ -23,6 +23,7 @@ const history = createHistory();
 window.dataLayer = window.dataLayer || [];
 function gtag(){window.dataLayer.push(arguments);}
 gtag('js', new Date());
+gtag('config', 'UA-82689420-3', { page_path: window.location.pathname });
 /* eslint-enable */
 
 history.listen((location) => {
