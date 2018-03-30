@@ -26,7 +26,7 @@ gtag('js', new Date());
 /* eslint-enable */
 
 history.listen((location) => {
-  window.gtag('config', 'UA-82689420-3', { page_path: location });
+  gtag('config', 'UA-82689420-3', { page_path: location });
 });
 
 ReactDOM.hydrate(
