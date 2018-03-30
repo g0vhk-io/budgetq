@@ -30,6 +30,7 @@
   "scripts": {
     "start": "node server/server",
     "lint": "eslint --ext js,jsx --fix",
+    "dev:setup": "webpack --config build/webpack.dev.conf.js",
     "dev": "nodemon --watch server server/server",
     "build": "yarn build:frontend && yarn build:backend",
     "build:frontend": "webpack --config build/webpack.prod.conf.js",

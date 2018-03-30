@@ -5,6 +5,9 @@ module.exports = merge.smart(base, {
   entry: {
     app: ['./src/clientEntry.js'],
   },
+  output: {
+    filename: '[name].js',
+  },
   module: {
     rules: [
       {
