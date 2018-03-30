@@ -1,21 +1,39 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Tabs, { Tab } from 'material-ui/Tabs';
 import AppBar from 'material-ui/AppBar';
 import Button from 'material-ui/Button';
 import Toolbar from 'material-ui/Toolbar';
+import { withStyles } from 'material-ui/styles';
 import { Helmet } from 'react-helmet';
 import PropTypes from 'prop-types';
 import Chip from 'material-ui/Chip';
 import Disqus from './Disqus';
 import { loadReply } from './actions';
 
+function SearchChip({ keyword, classes }) {
+  return (
+    <Link to={`/search/${keyword}`} className={classes.link}>
+      <Chip label={keyword} />
+    </Link>
+  );
+}
+
+SearchChip.propTypes = {
+  keyword: PropTypes.string.isRequired,
+  classes: PropTypes.object.isRequired,
+};
+
+const StyledSearchChip = withStyles({
+  link: {
+    'text-decoration': 'none',
+    'margin-left': '0.25rem',
+    'margin-right': '0.25rem',
+  },
+})(SearchChip);
 
 class Reply extends Component {
-  static handleClick(evt) {
-    window.location = `/search/${evt.target.innerText}`;
-  }
-
   constructor(props) {
     super(props);
     this.renderTable = this.renderTable.bind(this);
@@ -116,11 +134,7 @@ class Reply extends Component {
           <tr>
             <td>關鍵字:</td>
             <td>
-              { reply.keywords.map(k => (
-                <span>
-                  <Chip label={k} onClick={Reply.handleClick} />
-                   &nbsp;&nbsp;
-                </span>))}
+              { reply.keywords.map(k => <StyledSearchChip keyword={k} key={k} />)}
             </td>
           </tr>
           <tr>
@@ -164,14 +178,13 @@ class Reply extends Component {
 
 const mapStateToProps = state => ({ reply: state.reply.data, loading: state.reply.loading });
 
-const mapDispatchToProps = dispatch =>
-  ({ loadReplyAction: key => dispatch(loadReply(key)) });
+const mapDispatchToProps = dispatch => ({ loadReplyAction: key => dispatch(loadReply(key)) });
 
 Reply.propTypes = {
-  loadReplyAction: PropTypes.func,
+  loadReplyAction: PropTypes.func.isRequired,
   match: PropTypes.object,
   replyKey: PropTypes.string,
-  reply: PropTypes.string,
+  reply: PropTypes.object,
   key: PropTypes.string,
   loading: PropTypes.bool,
 };
@@ -179,7 +192,6 @@ Reply.propTypes = {
 
 Reply.defaultProps = {
   loading: null,
-  loadReplyAction: null,
   match: null,
   reply: null,
   replyKey: null,

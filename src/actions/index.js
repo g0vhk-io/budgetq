@@ -90,7 +90,6 @@ export function loadMeetings(year) {
 export function loadBureauMeetings(year, bureau, page=0, pageSize=25) {
   return (dispatch) => {
     const offset = page * pageSize;
-    console.log(page, pageSize);
     return fetch(ENDPOINT + '/budget/replies/' + year + '/' + bureau + '/?offset=' + offset + '&limit=' + pageSize  ).then(
       response => {
         if (response.ok) {

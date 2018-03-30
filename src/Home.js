@@ -8,6 +8,7 @@ import IconButton from 'material-ui/IconButton';
 import PropTypes from 'prop-types';
 import SearchIcon from 'material-ui-icons/Search';
 import List from './List';
+import { loadMeetings } from './actions';
 
 
 const styles = () => ({
@@ -22,19 +23,37 @@ const styles = () => ({
 
 
 class Home extends Component {
+  static propTypes = {
+    classes: PropTypes.object,
+    history: PropTypes.object,
+    load: PropTypes.func.isRequired,
+    meeting: PropTypes.object.isRequired,
+  };
+
+  static defaultProps = {
+    classes: null,
+    history: null,
+  };
+
   constructor(props) {
     super(props);
-    this.search = null;
-    this.setSearchInput = this.setSearchInput.bind(this);
+    this.state = { search: '' };
   }
 
-  setSearchInput(target) {
-    this.search = target;
+  componentDidMount() {
+    const { load } = this.props;
+    load(2017);
+    load(2016);
+    load(2015);
+    load(2014);
+  }
+
+  setSearchInput(search) {
+    this.setState({ search });
   }
 
   render() {
     const { classes, history } = this.props;
-    const { setSearchInput } = this;
     return (
       <div>
         <AppBar position="static" color="default">
@@ -43,12 +62,13 @@ class Home extends Component {
               id="search"
               placeholder="關鍵字"
               margin="normal"
-              inputRef={input => setSearchInput(input)}
+              onChange={e => this.setSearchInput(e.target.value)}
+              value={this.state.search}
               onKeyPress={(ev) => {
                 if (ev.key === 'Enter') {
                   ev.target.blur();
                   ev.preventDefault();
-                  history.push(`/search/${ev.target.value}`);
+                  history.push(`/search/${this.state.search}`);
                 }
               }}
               className={classes.search}
@@ -59,7 +79,7 @@ class Home extends Component {
               onClick={
                 (ev) => {
                   ev.preventDefault();
-                  const keyword = this.search.value;
+                  const keyword = this.state.search;
                   history.push(`/search/${keyword}`);
                 }
               }
@@ -68,24 +88,18 @@ class Home extends Component {
             </IconButton>
           </Toolbar>
         </AppBar>
-        <List />
+        <List meeting={this.props.meeting} />
       </div>
     );
   }
 }
 
-Home.propTypes = {
-  classes: PropTypes.object,
-  history: PropTypes.object,
-};
+const mapStateToProps = state => ({
+  meeting: state.meeting,
+});
 
-Home.defaultProps = {
-  classes: null,
-  history: null,
-};
-
-const mapStateToProps = () => ({});
-
-const mapDispatchToProps = () => ({});
+const mapDispatchToProps = dispatch => ({
+  load: key => dispatch(loadMeetings(key)),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Home));

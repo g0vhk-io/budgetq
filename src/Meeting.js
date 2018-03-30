@@ -3,12 +3,42 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
-import { withRouter } from 'react-router';
 import { loadBureauMeetings } from './actions';
 import MeetingTable from './MeetingTable';
 
+function TitleBar({ bureau, year }) {
+  return (
+    <AppBar position="static" color="secondary">
+      <Toolbar>
+        {`${year - 1} 至 ${year} 年度  ${bureau}`}
+      </Toolbar>
+    </AppBar>
+  );
+}
+
+TitleBar.propTypes = {
+  year: PropTypes.string,
+  bureau: PropTypes.string,
+};
+
+TitleBar.defaultProps = {
+  year: '',
+  bureau: '',
+};
 
 class Meeting extends Component {
+  static propTypes = {
+    load: PropTypes.func,
+    match: PropTypes.object,
+    bureauMeeting: PropTypes.object,
+  };
+
+  static defaultProps = {
+    load: null,
+    match: null,
+    bureauMeeting: null,
+  };
+
   constructor(props) {
     super(props);
     this.handleChangePage = this.handleChangePage.bind(this);
@@ -31,20 +61,15 @@ class Meeting extends Component {
     const { year } = this.props.match.params;
     return (
       <div>
-        <AppBar position="static" color="accent">
-          <Toolbar>
-            {year - 1}&nbsp;至&nbsp;{year}&nbsp;年度&nbsp;&nbsp;
-            {bureauMeeting.bureau}
-          </Toolbar>
-        </AppBar>
+        <TitleBar year={year} bureau={bureauMeeting.bureau} />
         { bureauMeeting.meetings &&
-          <MeetingTable
-            meetings={bureauMeeting.meetings}
-            offset={bureauMeeting.offset}
-            total={bureauMeeting.total}
-            limit={bureauMeeting.limit}
-            handleChangePage={this.handleChangePage}
-          />
+        <MeetingTable
+          meetings={bureauMeeting.meetings}
+          offset={bureauMeeting.offset}
+          total={bureauMeeting.total}
+          limit={bureauMeeting.limit}
+          handleChangePage={this.handleChangePage}
+        />
         }
       </div>
     );
@@ -53,22 +78,8 @@ class Meeting extends Component {
 
 const mapStateToProps = state => ({ bureauMeeting: state.bureauMeeting });
 
-const mapDispatchToProps = dispatch => (
-  {
-    load: (year, bureau, page) => dispatch(loadBureauMeetings(year, bureau, page)),
-  }
-);
+const mapDispatchToProps = dispatch => ({
+  load: (year, bureau, page) => dispatch(loadBureauMeetings(year, bureau, page)),
+});
 
-Meeting.defaultProps = {
-  load: null,
-  match: null,
-  bureauMeeting: null,
-};
-
-Meeting.propTypes = {
-  load: PropTypes.func,
-  match: PropTypes.object,
-  bureauMeeting: PropTypes.object,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Meeting));
+export default connect(mapStateToProps, mapDispatchToProps)(Meeting);
