@@ -61,7 +61,7 @@ class Reply extends Component {
 
   renderHeader() {
     const { reply } = this.props;
-    const url = `https://api.g0vhk.io/budget/sharer/${reply.key}`;
+    const url = `https://budgetq.g0vhk.io/reply/${reply.key}`;
     return (
       <AppBar position="static" color="secondary">
         <Toolbar>
