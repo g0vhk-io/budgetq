@@ -5,8 +5,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="theme-color" content="#000000">
-    <meta name="description" content="g0vhk - 財委會開支預算審核書面答覆"/>
-    <meta name="keywords" content="g0vhk, 立法會, 財委會, 開放數據">
+    <meta name="description" content="<%= ogDescription %>"/>
+    <meta name="keywords" content="<%= keywords %>">
     <%#
       manifest.json provides metadata used when your web app is added to the
       homescreen on Android. See https://developers.google.com/web/fundamentals/engage-and-retain/web-app-manifest/
@@ -22,10 +22,11 @@
         fjs.parentNode.insertBefore(js, fjs);
       }(document, 'script', 'facebook-jssdk'));</script>
     <script type="text/javascript" src="//platform-api.sharethis.com/js/sharethis.js#property=5a63dd98c00bd90012a4d9e3&product=inline-share-buttons"></script>
-    <meta property="og:image" content="/gov_bg.png"/>
-    <meta property="og:image:width" content="1600"/>
-    <meta property="og:image:height" content="800"/>
-    <title>g0vhk - 財委會開支預算審核書面答覆</title>
+    <meta property="og:image" content="<%= ogImage %>"/>
+    <meta property="og:image:width" content="600"/>
+    <meta property="og:image:height" content="351"/>
+    <meta name="og:description" content="<%= ogDescription %>"/>
+    <title><%= title %></title>
     <% styles.forEach(function (style) { %>
     <link href="<%= style %>" rel="stylesheet"/>
     <% }) %>
