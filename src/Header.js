@@ -7,6 +7,7 @@ import HomeIcon from 'material-ui-icons/Home';
 import IconButton from 'material-ui/IconButton';
 import TiSocialFacebook from 'react-icons/lib/ti/social-facebook';
 import TiSocialGithub from 'react-icons/lib/ti/social-github';
+import TiSocialTwitter from 'react-icons/lib/ti/social-twitter';
 import { withRouter } from 'react-router';
 
 const styles = () => ({
@@ -73,6 +74,15 @@ const Header = ({ classes, history }) => {
           >
             <IconButton>
               <TiSocialGithub size={30} color="white" />
+            </IconButton>
+          </a>
+           <a
+            target="_blank"
+            rel="noopener noreferrer"
+            href="https://twitter.com/g0vhk_io"
+          >
+            <IconButton>
+              <TiSocialTwitter size={30} color="white" />
             </IconButton>
           </a>
         </Toolbar>
