@@ -1,4 +1,14 @@
 sudo: required
+language: node_js
+
+node_js:
+  - 8
+
+cache:
+  yarn: true
+  directories:
+    - "node_modules"
+
 env:
   global:
     - COMMIT=${TRAVIS_COMMIT::8}
@@ -9,8 +19,7 @@ services:
   - docker
 
 script:
-    - npm install
-    - npm run lint
+    - yarn lint
 
 after_success:
     - docker build -t $ORG/$REPO:$COMMIT .

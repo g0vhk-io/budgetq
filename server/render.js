@@ -1,4 +1,6 @@
 /* eslint-disable global-require */
+
+// eslint-disable-next-line import/no-unresolved
 const assets = require('../dist/assets.json');
 const { PRODUCTION } = require('../env');
 
@@ -14,7 +16,7 @@ if ('css' in assets.app) {
   styles.push(assets.app.css);
 }
 
-// eslint-disable-next-line prefer-destructuring
+// eslint-disable-next-line
 let createApp = require('../lib/app').createApp;
 
 if (!PRODUCTION) {
@@ -33,7 +35,7 @@ if (!PRODUCTION) {
     } else {
       console.log(stats.toString('minimal'));
       delete require.cache[bundleCache];
-      // eslint-disable-next-line prefer-destructuring
+      // eslint-disable-next-line
       createApp = require('../lib/app').createApp;
     }
   });
@@ -42,7 +44,12 @@ if (!PRODUCTION) {
 module.exports = function (app) {
   app.get('*', (req, res) => {
     createApp({ location: req.url })
-      .then(({ content, context, store }) => {
+      .then(({
+        content, context, store, notFound,
+      }) => {
+        if (notFound) {
+          res.status(404);
+        }
         if (context && context.url) {
           res.redirect(302, context.url);
         } else {
@@ -50,12 +57,12 @@ module.exports = function (app) {
           let title = '開支預算問題書面答覆搜尋器';
           let ogImage = '/gov_bg.png';
           let keywords = ['g0vhk', '立法會', '財委會', '開放數據'];
-          let ogDescription = "";
+          let ogDescription = '';
           if (reply && reply.data) {
-            const data = reply.data;
-            title = '開支預算問題書面答覆搜尋器 - ' + data.member + '-' + data.key;
-            ogImage = 'https://storage.googleapis.com/g0vhk/public/budgetq/' + data.year + '/' + data.bureau + '/' + data.key + '.png';
-            ogDescription = data.member + ":" + data.question.substring(0, 100);
+            const { data } = reply;
+            title = `開支預算問題書面答覆搜尋器 - ${data.member}-${data.key}`;
+            ogImage = `https://storage.googleapis.com/g0vhk/public/budgetq/${data.year}/${data.bureau}/${data.key}.png`;
+            ogDescription = `${data.member}:${data.question.substring(0, 100)}`;
             keywords = keywords.concat(data.keywords);
           }
           res.render('page', {
@@ -63,10 +70,10 @@ module.exports = function (app) {
             styles,
             content,
             store: store.getState(),
-            title: title,
-            ogImage: ogImage,
-            keywords: keywords.join(", "),
-            ogDescription: ogDescription,
+            title,
+            ogImage,
+            keywords: keywords.join(', '),
+            ogDescription,
           });
         }
         res.end();

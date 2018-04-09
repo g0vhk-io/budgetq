@@ -23,15 +23,6 @@ const styles = () => ({
 
 
 class Home extends Component {
-  static fetchData({ store }) {
-    return Promise.all([
-      2017,
-      2016,
-      2015,
-      2014,
-    ].map(yr => store.dispatch(loadMeetings(yr))));
-  }
-
   static propTypes = {
     classes: PropTypes.object,
     history: PropTypes.object,

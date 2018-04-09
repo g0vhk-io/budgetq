@@ -27,59 +27,57 @@ const styles = () => ({
   },
 });
 
-const Header = ({ classes, history }) => {
-  return (
-    <div>
-      <AppBar position="static" className={classes.root}>
-        <Toolbar>
-          <h2 style={{ maxWidth: '70%' }}>
-            <IconButton
-              style={{ color: '#FFF' }}
-              onClick={() => { history.push('/'); }}
-            >
-              <HomeIcon />
-            </IconButton>
+const Header = ({ classes, history }) => (
+  <div>
+    <AppBar position="static" className={classes.root}>
+      <Toolbar>
+        <h2 style={{ maxWidth: '70%' }}>
+          <IconButton
+            style={{ color: '#FFF' }}
+            onClick={() => { history.push('/'); }}
+          >
+            <HomeIcon />
+          </IconButton>
             g0vhk
-            <br />
+          <br />
             開支預算問題書面答覆搜尋器&nbsp;&nbsp;
-          </h2>
+        </h2>
           &nbsp;
-          <div
-            className="fb-like"
-            data-href="https://www.facebook.com/g0vhk.io/"
-            data-layout="button"
-            data-action="like"
-            data-size="large"
-            data-show-faces="false"
-            data-share="false"
-          />
-        </Toolbar>
-      </AppBar>
-      <AppBar position="static" className={classes.social}>
-        <Toolbar className={classes.tool}>
-          <a
-            target="_blank"
-            rel="noopener noreferrer"
-            href="https://www.facebook.com/g0vhk.io"
-          >
-            <IconButton>
-              <TiSocialFacebook size={30} color="white" />
-            </IconButton>
-          </a>
-          <a
-            target="_blank"
-            rel="noopener noreferrer"
-            href="https://github.com/g0vhk-io"
-          >
-            <IconButton>
-              <TiSocialGithub size={30} color="white" />
-            </IconButton>
-          </a>
-        </Toolbar>
-      </AppBar>
-    </div>
-  );
-};
+        <div
+          className="fb-like"
+          data-href="https://www.facebook.com/g0vhk.io/"
+          data-layout="button"
+          data-action="like"
+          data-size="large"
+          data-show-faces="false"
+          data-share="false"
+        />
+      </Toolbar>
+    </AppBar>
+    <AppBar position="static" className={classes.social}>
+      <Toolbar className={classes.tool}>
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          href="https://www.facebook.com/g0vhk.io"
+        >
+          <IconButton>
+            <TiSocialFacebook size={30} color="white" />
+          </IconButton>
+        </a>
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          href="https://github.com/g0vhk-io"
+        >
+          <IconButton>
+            <TiSocialGithub size={30} color="white" />
+          </IconButton>
+        </a>
+      </Toolbar>
+    </AppBar>
+  </div>
+);
 
 
 Header.propTypes = {
