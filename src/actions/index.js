@@ -75,7 +75,7 @@ export function loadMeetings(year) {
         dispatch(updateMeetings(year, []));
       }
     })
-    .catch(() => dispatch(updateMeetings(year, [])))
+    .catch(() => dispatch(updateMeetings(year, [])));
 }
 
 export function loadBureauMeetings(year, bureau, page = 0, pageSize = 25) {

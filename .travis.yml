@@ -9,8 +9,7 @@ services:
   - docker
 
 script:
-    - npm install
-    - npm run lint
+    - yarn lint
 
 after_success:
     - docker build -t $ORG/$REPO:$COMMIT .
