@@ -42,7 +42,12 @@ if (!PRODUCTION) {
 module.exports = function (app) {
   app.get('*', (req, res) => {
     createApp({ location: req.url })
-      .then(({ content, context, store }) => {
+      .then(({
+        content, context, store, notFound,
+      }) => {
+        if (notFound) {
+          res.status(404);
+        }
         if (context && context.url) {
           res.redirect(302, context.url);
         } else {

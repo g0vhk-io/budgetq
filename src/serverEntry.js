@@ -5,6 +5,21 @@ import { Provider } from 'react-redux';
 import createStore from './store';
 import App, { routes } from './App';
 
+function matchRoute(location) {
+  return routes.find((route) => {
+    const match = matchPath(location, route);
+    return !!match && match.isExact;
+  });
+}
+
+function fetchData(store, route, location) {
+  if (!route) {
+    return Promise.resolve();
+  }
+  const match = matchPath(location, route);
+  return route.fetchData({ store, match });
+}
+
 function createApp({
   location,
 }) {
@@ -14,16 +29,9 @@ function createApp({
   });
   const context = {};
 
-  const fetches = routes.map((route) => {
-    const match = matchPath(location, route);
-    if (match) {
-      return route.fetchData({ store, match });
-    }
-    return Promise.resolve();
-  });
-  const instance = <App />;
+  const matchedRoute = matchRoute(location);
 
-  return Promise.all(fetches)
+  return fetchData(store, matchedRoute, location)
     .then(() => {
       const app = (
         <Provider store={store}>
@@ -31,7 +39,7 @@ function createApp({
             location={location}
             context={context}
           >
-            {instance}
+            <App />
           </StaticRouter>
         </Provider>
       );
@@ -41,6 +49,7 @@ function createApp({
         content,
         context,
         store,
+        notFound: !matchedRoute,
       };
     });
 }

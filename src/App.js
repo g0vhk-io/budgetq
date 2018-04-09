@@ -7,6 +7,7 @@ import Home from './Home';
 import Reply from './Reply';
 import Meeting from './Meeting';
 import Search from './Search';
+import NotFound from './NotFound';
 import { loadBureauMeetings, loadMeetings, loadReply } from './actions';
 
 export const routes = [
@@ -57,6 +58,7 @@ export default function App() {
           path={route.path}
           component={route.component}
         />))}
+        <Route component={NotFound} />
       </Layout>
     </Switch>
   );
