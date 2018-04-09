@@ -1,4 +1,6 @@
 /* eslint-disable global-require */
+
+// eslint-disable-next-line import/no-unresolved
 const assets = require('../dist/assets.json');
 const { PRODUCTION } = require('../env');
 
@@ -14,7 +16,7 @@ if ('css' in assets.app) {
   styles.push(assets.app.css);
 }
 
-// eslint-disable-next-line prefer-destructuring
+// eslint-disable-next-line
 let createApp = require('../lib/app').createApp;
 
 if (!PRODUCTION) {
@@ -33,7 +35,7 @@ if (!PRODUCTION) {
     } else {
       console.log(stats.toString('minimal'));
       delete require.cache[bundleCache];
-      // eslint-disable-next-line prefer-destructuring
+      // eslint-disable-next-line
       createApp = require('../lib/app').createApp;
     }
   });
