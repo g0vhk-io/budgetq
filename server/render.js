@@ -50,23 +50,28 @@ module.exports = function (app) {
           let title = '開支預算問題書面答覆搜尋器';
           let ogImage = '/gov_bg.png';
           let keywords = ['g0vhk', '立法會', '財委會', '開放數據'];
-          let ogDescription = "";
+          let ogDescription = '';
           if (reply && reply.data) {
-            const data = reply.data;
-            title = '開支預算問題書面答覆搜尋器 - ' + data.member + '-' + data.key;
-            ogImage = 'https://storage.googleapis.com/g0vhk/public/budgetq/' + data.year + '/' + data.bureau + '/' + data.key + '.png';
-            ogDescription = data.member + ":" + data.question.substring(0, 100);
+            const { data } = reply;
+            title = `開支預算問題書面答覆搜尋器 - ${data.member}-${data.key}`;
+            ogImage = `https://storage.googleapis.com/g0vhk/public/budgetq/${data.year}/${data.bureau}/${data.key}.png`;
+            ogDescription = `${data.member}:${data.question.substring(0, 100)}`;
             keywords = keywords.concat(data.keywords);
           }
+          const urlPath = req.url.split('/');
+          if (urlPath.length > 2 && urlPath[1] === 'search') {
+            title += ` 「${decodeURIComponent(urlPath[2])} 」結果`;
+          }
+
           res.render('page', {
             scripts,
             styles,
             content,
             store: store.getState(),
-            title: title,
-            ogImage: ogImage,
-            keywords: keywords.join(", "),
-            ogDescription: ogDescription,
+            title,
+            ogImage,
+            keywords: keywords.join(', '),
+            ogDescription,
           });
         }
         res.end();

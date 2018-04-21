@@ -67,10 +67,11 @@ class Reply extends Component {
         <Toolbar>
           { reply.key } - { reply.member }
           &nbsp;&nbsp;
-          <Button 
+          <Button
             href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`}
             target="_blank"
-            variant="raised" >
+            variant="raised"
+          >
             分享
           </Button>
           &nbsp;&nbsp;

@@ -17,4 +17,3 @@ require('./assets')(app)
   .then(require('./render'))
   .then(() => app.listen(PORT, () => console.log('Listening')));
 
-
