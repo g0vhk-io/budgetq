@@ -32,7 +32,7 @@ const Header = ({ classes, history }) => (
   <div>
     <AppBar position="static" className={classes.root}>
       <Toolbar>
-        <h2 style={{ maxWidth: '70%' }}>
+        <h1 style={{ maxWidth: '70%' }}>
           <IconButton
             style={{ color: '#FFF' }}
             onClick={() => { history.push('/'); }}
@@ -42,7 +42,7 @@ const Header = ({ classes, history }) => (
             g0vhk
           <br />
             開支預算問題書面答覆搜尋器&nbsp;&nbsp;
-        </h2>
+        </h1>
           &nbsp;
         <div
           className="fb-like"

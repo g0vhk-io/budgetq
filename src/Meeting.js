@@ -10,7 +10,7 @@ function TitleBar({ bureau, year }) {
   return (
     <AppBar position="static" color="secondary">
       <Toolbar>
-        {`${year - 1} 至 ${year} 年度  ${bureau}`}
+        <h2> {`${year - 1} 至 ${year} 年度  ${bureau}`}</h2>
       </Toolbar>
     </AppBar>
   );

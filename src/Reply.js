@@ -65,7 +65,7 @@ class Reply extends Component {
     return (
       <AppBar position="static" color="secondary">
         <Toolbar>
-          { reply.key } - { reply.member }
+          <h2> { reply.key } - { reply.member } </h2>
           &nbsp;&nbsp;
           <Button
             href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`}

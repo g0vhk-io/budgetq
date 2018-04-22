@@ -16,7 +16,7 @@ function renderChunks(chunks) {
       <TableCell key={m.bureau.name_ch}>
         <Link to={`/meeting/${m.year}/${m.bureau.bureau}`}>
           <Button color="secondary" fullWidth>
-            { m.bureau.name_ch }
+            <h3>{ m.bureau.name_ch }</h3>
           </Button>
         </Link>
       </TableCell>
@@ -42,7 +42,7 @@ function Year({ year, meetings, classes }) {
   return (
     <div key={year}>
       <AppBar position="static" color="secondary">
-        <h5 className={classes.title}>{year - 1} 至 {year} 年度</h5>
+        <h2 className={classes.title}>{year - 1} 至 {year} 年度</h2>
       </AppBar>
       <Table style={{ width: '100%', tableLayout: 'fixed' }}>
         <TableBody>{rows}</TableBody>
