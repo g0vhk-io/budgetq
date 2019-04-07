@@ -38,7 +38,7 @@ function Year({ year, meetings, classes }) {
         {renderChunks(c)}
       </TableRow>
     ));
-  const nextYear = parseInt(year) + 1;
+  const nextYear = parseInt(year, 10) + 1;
   return (
     <div key={year}>
       <AppBar position="static" color="secondary">

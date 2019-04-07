@@ -57,12 +57,12 @@ module.exports = function (app) {
             ogImage = `https://storage.googleapis.com/g0vhk/public/budgetq/${data.year}/${data.bureau}/${data.key}.png`;
             ogDescription = `${data.member}:${data.question.substring(0, 100)}`;
             keywords = keywords.concat(data.keywords);
-            keywords =  keywords.concat([data.member])
+            keywords = keywords.concat([data.member]);
           }
           const urlPath = req.url.split('/');
           if (urlPath.length > 2 && urlPath[1] === 'search') {
             title += ` 「${decodeURIComponent(urlPath[2])} 」結果`;
-            keywords =  keywords.concat([urlPath[2]]);
+            keywords = keywords.concat([urlPath[2]]);
           }
 
           res.render('page', {
