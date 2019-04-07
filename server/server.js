@@ -13,6 +13,7 @@ app.use(helmet());
 app.use(morgan(PRODUCTION ? 'combined' : 'dev'));
 app.use(serveStatic('public'));
 
+
 require('./assets')(app)
   .then(require('./render'))
   .then(() => app.listen(PORT, () => console.log('Listening')));

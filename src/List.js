@@ -38,11 +38,11 @@ function Year({ year, meetings, classes }) {
         {renderChunks(c)}
       </TableRow>
     ));
-
+  const nextYear = parseInt(year) + 1;
   return (
     <div key={year}>
       <AppBar position="static" color="secondary">
-        <h2 className={classes.title}>{year - 1} 至 {year} 年度</h2>
+        <h2 className={classes.title}>{year} 至 {nextYear} 年度</h2>
       </AppBar>
       <Table style={{ width: '100%', tableLayout: 'fixed' }}>
         <TableBody>{rows}</TableBody>
