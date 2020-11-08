@@ -25,7 +25,7 @@ const styles = () => ({
 class Home extends Component {
   static fetchData({ store }) {
     return Promise.all([
-	  2020,
+      2020,
       2019,
       2018,
       2017,
