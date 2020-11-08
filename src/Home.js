@@ -25,6 +25,7 @@ const styles = () => ({
 class Home extends Component {
   static fetchData({ store }) {
     return Promise.all([
+	  2020,
       2019,
       2018,
       2017,
@@ -53,6 +54,7 @@ class Home extends Component {
 
   componentDidMount() {
     const { load } = this.props;
+    load(2020);
     load(2019);
     load(2018);
     load(2017);
